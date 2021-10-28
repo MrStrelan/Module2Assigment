@@ -1,27 +1,25 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie
+public class Movie implements Serializable
 {
     private int ID;
     private String title;
-    private ArrayList<String> actor = new ArrayList<String>();
-    private ArrayList<String> role = new ArrayList<String>();
+    private ArrayList<String> actors = new ArrayList<>();
+    private ArrayList<String> roles = new ArrayList<>();
     private int date;
     private static int IDnum=1;
 
-    public Movie(String title, int date)
-    {
+    public Movie(){}
+    public Movie(int ID, String title, ArrayList<String> actors, ArrayList<String> roles, int date) {
+        this.ID = ID;
         this.title = title;
+        this.actors = actors;
+        this.roles = roles;
         this.date = date;
-        this.ID = IDnum;
         IDnum++;
     }
 
-    public void addActor(String name, String role)
-    {
-        actor.add(name);
-        this.role.add(role);
-    }
 
     public int getID() {
         return ID;
@@ -35,12 +33,48 @@ public class Movie
         return date;
     }
 
+    public ArrayList<String> getActors() {return actors;}
+
+    public ArrayList<String> getRoles() {return roles;}
+
+    public static int getIDnum() {return IDnum;}
+
     public String getActor(int ID) {
-        return actor.get(ID);
+        return actors.get(ID);
     }
 
     public String getRole(int ID) {
-        return role.get(ID);
+        return roles.get(ID);
     }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setActors(ArrayList<String> actors) {
+        this.actors = actors;
+    }
+
+    public void setRoles(ArrayList<String> roles) {
+        this.roles = roles;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
+    }
+
+    public static void setIDnum(int IDnum) {
+        Movie.IDnum = IDnum;
+    }
+
+    public String toString(){
+        return "ID:"+getID()+", "+getTitle() +", "+ getDate()+",\n"+getActors()+"\n"
+                +getRoles()+ "\n";
+    }
+
 }
 

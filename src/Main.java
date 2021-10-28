@@ -1,11 +1,32 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main
 {
-    public static void main(String[] args)
-    {
-            FileManager manag = new FileManager();
+    public static void main(String[] args) {
+
+        //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
+
+        ArrayList<Movie> movDB = new ArrayList<>();
+        System.out.println(MovieDB.ReadDB().get(0).toString());
+        //MovieDB.deleteMovieFromDB();//deletes movie from DB asking for movie ID
+        MovieDB.CreateMovie();
+        MovieDB.UpdateMovie();
+        FindMovie.Find();
+
+
+
+
+
+
+
+
+
+
+
+
+            /*FileManager manag = new FileManager();
             Account test = new Account();
             boolean creatingAccount = false;
             while (creatingAccount == false) {
@@ -20,7 +41,7 @@ public class Main
                     while(creatingUsername == false) {
                         System.out.println("Enter username");
                         String enteredUsername = inputSc.nextLine();
-                            while (manag.reads.hasNextLine()) {
+                            while (manag.manage().reads.hasNextLine()) {
                                 if (enteredUsername == manag.reads.nextLine()) {
                                     System.out.println("This username is already taken, try another one");
                                 } else {
@@ -39,6 +60,6 @@ public class Main
                     System.out.println("This option is not on menu, try again");
                 }
             }
-
+        */
     }
 }
