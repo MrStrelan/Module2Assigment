@@ -1,3 +1,5 @@
+import kotlin.Pair;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,9 +8,10 @@ public class Menu {
 
     //Prints the first Menu
     public static void menuLog() {
-        boolean creatingAccount = false;
+        boolean creatingAccount = true;
         Scanner inputSc = new Scanner(System.in);
-
+        Pair<Boolean, Integer> logInfo;
+        int inSystem;
         while (!creatingAccount) {
             String menuLogin = """
                     =====================================================================================================
@@ -42,10 +45,17 @@ public class Menu {
             input = checkInt();
             if (input == 1) {
                 //Account.CreateAccount()
+                logInfo = Account.logIn();
+                creatingAccount = logInfo.getFirst();
+                inSystem = logInfo.getSecond();
+                System.out.println("Logged in successfully");
                 Menu.flush();
                 Menu.menuActions();
             } else if (input == 2) {
-                //Account.login()
+                logInfo = Account.creatingUser();
+                creatingAccount = logInfo.getFirst();
+                inSystem = logInfo.getSecond();
+                System.out.println("Account created");
                 Menu.flush();
                 Menu.menuActions();
             } else if (input == 3) {

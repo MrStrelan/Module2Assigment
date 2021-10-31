@@ -9,13 +9,6 @@ public class Main {
 
         //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
         Menu.menuLog();
-        ArrayList<Movie> movDB = new ArrayList<>();
-        System.out.println(MovieDB.ReadDB().get(0).toString());
-        //MovieDB.deleteMovieFromDB();//deletes movie from DB asking for movie ID
-        MovieDB.CreateMovie();
-        MovieDB.UpdateMovie();
-        FindMovie.Find();
-
 
         System.out.println("1. Log in");
         System.out.println("2. Create account");
