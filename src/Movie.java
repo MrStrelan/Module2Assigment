@@ -1,8 +1,8 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie implements Serializable
-{
+public class Movie implements Serializable {
+
     private int ID;
     private String title;
     private ArrayList<String> actors = new ArrayList<>();
@@ -72,8 +72,18 @@ public class Movie implements Serializable
     }
 
     public String toString(){
-        return "ID:"+getID()+", "+getTitle() +", "+ getDate()+",\n"+getActors()+"\n"
-                +getRoles()+ "\n";
+
+        return "\n ID:"+getID()+", "+getTitle() +", "+ getDate()+",\n"+ getActorRole();
+    }
+    public String getActorRole(){
+        StringBuilder display = new StringBuilder("with: ");
+        for (int i = 0; i < getActors().size(); i++) {
+            display.append(" ").append(getActors().get(i)).append(" as ").append(getRoles().get(i));
+            if (i < getActors().size()-1){
+                display.append("\n");
+            }
+        }
+        return display.toString();
     }
 
 }
