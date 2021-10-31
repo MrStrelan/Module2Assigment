@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    int AccountID = 0;
+    int inSystem;
 
     //Prints the first Menu
     public static void menuLog() {
