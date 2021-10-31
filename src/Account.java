@@ -180,6 +180,9 @@ public class Account implements Serializable {
     }
     public static void watchMovie(int movieID, int inSystem)
     {
+        Menu.flush();
+        FindMovie.SearchByID(movieID);
+        System.out.println("");
         System.out.println("""
                     =====================================================================================================
                                 
@@ -210,8 +213,10 @@ public class Account implements Serializable {
         int menuIn = menuScan.nextInt();
         if(menuIn==1)
         {
-
+            dataBase.seeUsers().get(inSystem).addFavorite(movieID);
         }
+        addSeen(movieID,inSystem,5);
+
     }
 
 }
