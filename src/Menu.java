@@ -12,10 +12,10 @@ public class Menu {
         Scanner inputSc = new Scanner(System.in);
         Pair<Boolean, Integer> logInfo;
         int inSystem;
-        while (!creatingAccount) {
+        while (creatingAccount) {
             String menuLogin = """
-                    =====================================================================================================
-                                
+                    =======================================================================================================                               
+                       
                         _____                       __  __            _        _____        _        _                   \s
                        / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  \s
                       | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___\s
@@ -23,7 +23,8 @@ public class Menu {
                       | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
                        \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                              __/ |                                                                       \s
-                                            |___/                                                                        \s
+                                            |___/                                                                        
+                                            
                                                   What would you like to do today?
                                                                     
                                                         1.Login
@@ -38,7 +39,10 @@ public class Menu {
                                 
                                 
                                 
-                    =====================================================================================================
+                    
+                    
+                    
+                    =======================================================================================================
                     """;
             System.out.println(menuLogin);
             int input;
@@ -59,6 +63,9 @@ public class Menu {
                 Menu.flush();
                 Menu.menuUser();
             } else if (input == 3) {
+                creatingAccount = true;
+            } else if (input == 4) {
+                Menu.menuAdmin();
                 creatingAccount = true;
             } else {
                 Menu.flush();
@@ -98,6 +105,9 @@ public class Menu {
                                                          5.Log Out
                                 
                                 
+                    
+                    
+                    
                                 
                     =====================================================================================================
                     """;
@@ -207,7 +217,9 @@ public class Menu {
                                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                                         __/ |                                                                       
                                                        |___/                                                                        
-                                                              """;
+                                                              
+                                
+                                """;
         String menuBottom = """
                                                                      
                                                                         
@@ -220,6 +232,9 @@ public class Menu {
                                                                          
                                 
                                 
+                    
+                    
+                    
                                 
                     =====================================================================================================
                     """;
@@ -241,7 +256,7 @@ public class Menu {
                                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                                         __/ |                                                                       
                                                        |___/                                                                        
-                                                              """;
+                                """;
         System.out.println(menuTop);
 
     }
@@ -255,11 +270,26 @@ public class Menu {
                 check = userInput.nextInt();
                 watchint = true;
             } catch (InputMismatchException e) {
-                System.out.println("Please insert a number");
+                Menu.print("Please insert a number");
                 userInput.nextLine();
             }
         }
         return check;
     }
 
+
+    //Prints a blank space as many times as needed and a end line
+    public static void spaceEnd(int nr){
+
+        String blank = """
+                
+                """;
+        String endline = """
+                =====================================================================================================
+                """;
+        if (nr >= 3){System.out.println(blank);}
+        if (nr == 2){System.out.println(blank.repeat(5));}
+        if (nr == 1){System.out.println(blank.repeat(11));}
+        System.out.println(endline);
+    }
 }

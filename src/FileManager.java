@@ -1,13 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FileManager {
     //Creating files
     File usernames = new File("Accounts.txt");
 
     public void addUser(Account user) {
-        ArrayList<Account> users = new ArrayList<Account>();
+        ArrayList<Account> users = new ArrayList<>();
         users.add(user);
         try {
             FileOutputStream addUsers = new FileOutputStream(usernames);
@@ -22,7 +21,7 @@ public class FileManager {
 
     public ArrayList<Account> seeUsers()
     {
-        ArrayList<Account> users = new ArrayList<Account>();
+        ArrayList<Account> users = new ArrayList<>();
         try {
             FileInputStream userList = new FileInputStream(usernames);
             ObjectInputStream usernamesOut = new ObjectInputStream(userList);

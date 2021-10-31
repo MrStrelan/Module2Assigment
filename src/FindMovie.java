@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FindMovie {
+
     public static void Find() {
         Scanner userInput = new Scanner(System.in);
         String ask = """
@@ -29,6 +30,10 @@ public class FindMovie {
                                                   5.Roles
                                 
                                                                                                                                                                                 
+                
+                
+                
+                
                                                              
                 =====================================================================================================
                           
@@ -40,19 +45,15 @@ public class FindMovie {
             FindMovie.SearchTitle();
         } else if (answer == 2) {
             Menu.flush();
-            Menu.printFind();
             FindMovie.SearchYear();
         } else if (answer == 3) {
             Menu.flush();
-
             FindMovie.SearchActor();
         } else if (answer == 4) {
             Menu.flush();
-
             FindMovie.SearchID();
         } else if (answer == 5) {
             Menu.flush();
-
             FindMovie.SearchRoles();
         } else  {
             Menu.flush();
@@ -64,17 +65,19 @@ public class FindMovie {
 
     public static void SearchTitle() {
         Scanner userInput = new Scanner(System.in);
+        int nr = 0;
         Menu.print("Insert Title to Search: (Case Sensitive)");
         CharSequence s = userInput.nextLine();
         Movie mn = new Movie();
-
-        for (Movie m : MovieDB.ReadDB()
-        ) {
-            if (m.getTitle().contains(s)) {
-                System.out.println(m.toString());
-                //DisplayStatBasedOnAccount(m.getID())
+        Menu.printFind();
+        for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
+            if (MovieDB.ReadDB().get(i).getTitle().contains(s)) {
+                System.out.println(MovieDB.ReadDB().get(i).toString());
+                nr++;
             }
         }
+        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr > 0) {Menu.spaceEnd(nr);}
         userInput.nextLine();
     }
 
@@ -87,7 +90,7 @@ public class FindMovie {
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getDate() == s) {
-                System.out.println(m.toString());
+                System.out.println(m);
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
@@ -103,7 +106,7 @@ public class FindMovie {
         ) {
             for (int i = 0; i < m.getActors().size(); i++) {
                 if (m.getActors().get(i).contains(s)) {
-                    System.out.println(m.toString());
+                    System.out.println(m);
                     //DisplayStatBasedOnAccount(m.getID())
                 }
 
@@ -122,7 +125,7 @@ public class FindMovie {
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
-                System.out.println(m.toString());
+                System.out.println(m);
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
@@ -136,7 +139,7 @@ public class FindMovie {
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
-                System.out.println(m.toString());
+                System.out.println(m);
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
@@ -153,7 +156,7 @@ public class FindMovie {
         ) {
             for (int i = 0; i < m.getRoles().size(); i++) {
                 if (m.getRoles().get(i).contains(s)) {
-                    System.out.println(m.toString());
+                    System.out.println(m);
                     //DisplayStatBasedOnAccount(m.getID())
                 }
 
