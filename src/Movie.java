@@ -73,7 +73,7 @@ public class Movie implements Serializable {
 
     public String toString(){
 
-        return "\n ID:"+getID()+", "+getTitle() +", "+ getDate()+",\n"+ getActorRole();
+        return "\n ID:"+getID()+", "+getTitle() +", "+ getDate()+" \n"+ getActorRole();
     }
 
     public String getActorRole(){
@@ -81,7 +81,7 @@ public class Movie implements Serializable {
         for (int i = 0; i < getActors().size(); i++) {
             display.append(" ").append(getActors().get(i)).append(" as ").append(getRoles().get(i));
             if (i < getActors().size()-1){
-                display.append("\n");
+                display.append(" - ");
             }
         }
         return display.toString();
