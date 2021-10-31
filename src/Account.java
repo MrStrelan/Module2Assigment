@@ -130,7 +130,7 @@ public class Account implements Serializable {
     public static void deleteFavorite(int ID, int inSystem) {
         dataBase.seeUsers().get(inSystem).getFavMovies().remove(ID);
     }
-
+    //Id is movie Id
     public static void addSeen(int ID, int inSystem, int date) {
         dataBase.seeUsers().get(inSystem).addSeen(ID);
         dataBase.seeUsers().get(inSystem).addDate(date);

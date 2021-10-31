@@ -50,14 +50,14 @@ public class Menu {
                 inSystem = logInfo.getSecond();
                 System.out.println("Logged in successfully");
                 Menu.flush();
-                Menu.menuActions();
+                Menu.menuUser();
             } else if (input == 2) {
                 logInfo = Account.creatingUser();
                 creatingAccount = logInfo.getFirst();
                 inSystem = logInfo.getSecond();
                 System.out.println("Account created");
                 Menu.flush();
-                Menu.menuActions();
+                Menu.menuUser();
             } else if (input == 3) {
                 creatingAccount = true;
             } else {
@@ -67,8 +67,69 @@ public class Menu {
             }
         }
     }
+
     //Prints the Admin Menu
-    public static void menuActions() {
+    public static void menuAdmin() {
+        Scanner inputSc = new Scanner(System.in);
+        boolean useMenu = false;
+        while (!useMenu) {
+            String menuActions = """
+                    =====================================================================================================
+                                
+                       _____                       __  __            _        _____        _        _                   
+                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                            __/ |                                                                       
+                                           |___/                                                                        
+                        
+                                                   What would you like to do today?
+                                                                        
+                                                         1.Search Movie
+                                                                        
+                                                         2.Create Movie
+                                
+                                                         3.Update Movie
+                                
+                                                         4.Delete Movie
+                                
+                                                         5.Log Out
+                                
+                                
+                                
+                    =====================================================================================================
+                    """;
+            System.out.println(menuActions);
+            int input;
+            input = checkInt();
+            if (input == 1) {
+                Menu.flush();
+                FindMovie.Find();
+            } else if (input == 2) {
+                Menu.flush();
+                MovieDB.CreateMovie();
+            } else if (input == 3) {
+                Menu.flush();
+                MovieDB.UpdateMovie();
+            } else if (input == 4) {
+                Menu.flush();
+                MovieDB.deleteMovieFromDB();
+            } else if (input == 5) {
+                Menu.flush();
+                useMenu = true;
+            } else if (input == 6) {
+                Menu.flush();
+                MovieDB.CopyMovie();
+            } else {
+                Menu.print("This option is not on menu, try again");
+            }
+        }
+    }
+
+    //Prints the Admin Menu
+    public static void menuUser() {
         Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
         while (!useMenu) {
