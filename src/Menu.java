@@ -252,7 +252,4 @@ public class Menu {
         return check;
     }
 
-    public static int thisint(){
-        return 5;
-    }
 }
