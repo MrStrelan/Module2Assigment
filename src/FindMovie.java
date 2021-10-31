@@ -77,7 +77,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        //if (nr > 0) {Menu.spaceEnd(nr);}
         userInput.nextLine();
     }
 
