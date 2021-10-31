@@ -1,46 +1,39 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
     //Creating files
     File usernames = new File("Accounts.txt");
-    private Scanner reads;
 
-    public void addUser(String username) {
+    public void addUser(Account user) {
+        ArrayList<Account> users = new ArrayList<Account>();
+        users.add(user);
         try {
-            //Deciding how we gonna write in the files
-            FileOutputStream addUsernames = new FileOutputStream(usernames, true);
-            PrintStream inputUser = new PrintStream(addUsernames);
-            inputUser.println(username);
-            inputUser.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Adder didn't found file");
+            FileOutputStream addUsers = new FileOutputStream(usernames);
+            ObjectOutputStream usernamesIN = new ObjectOutputStream(addUsers);
+            usernamesIN.writeObject(users);
+            addUsers.close();
+            usernamesIN.close();
+        } catch (Exception e) {
+            System.out.println("Failed file writing");
         }
     }
 
-    public String readNextLine () {
-        String line = "";
-        try {
-            reads = new Scanner(usernames);
-            line = reads.nextLine();
-        }catch (FileNotFoundException e) {
-            System.out.println("Reader didn't got file");
-        }
-        return line;
-    }
-
-    public boolean checkLine()
+    public ArrayList<Account> seeUsers()
     {
-        boolean line = false;
+        ArrayList<Account> users = new ArrayList<Account>();
         try {
-            reads = new Scanner(usernames);
-            line = reads.hasNextLine();
-            String a = reads.nextLine();
-        }catch (FileNotFoundException e)
+            FileInputStream userList = new FileInputStream(usernames);
+            ObjectInputStream usernamesOut = new ObjectInputStream(userList);
+            users = (ArrayList<Account>) usernamesOut.readObject();
+            userList.close();
+            usernamesOut.close();
+        }catch(Exception e)
         {
-            System.out.println("Didn't found file while checking line");
+            System.out.println("Failed file reading");
         }
-        return line;
+        return users;
     }
 
 }

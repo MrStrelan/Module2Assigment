@@ -1,60 +1,48 @@
 import java.io.*;
+import java.sql.Struct;
+import java.util.ArrayList;
 import java.util.Scanner;
+import kotlin.Pair;
 
 public class Main {
     public static void main(String[] args) {
-        FileManager funk1 = new FileManager();
+/*
+        //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
+
+        ArrayList<Movie> movDB = new ArrayList<>();
+        System.out.println(MovieDB.ReadDB().get(0).toString());
+        //MovieDB.deleteMovieFromDB();//deletes movie from DB asking for movie ID
+        MovieDB.CreateMovie();
+        MovieDB.UpdateMovie();
+        FindMovie.Find();
+*/
+
+        System.out.println("1. Log in");
+        System.out.println("2. Create account");
+        Account newAcc = new Account();
+        Pair<Boolean, Integer> logInfo;
+        //Index in ArrayList of user who is using the system
+        int inSystem;
         boolean creatingAccount = true;
         while (creatingAccount == true) {
-            System.out.println("1. Log in");
-            System.out.println("2. Create account");
-            Scanner menuSc = new Scanner(System.in);
-            int input = menuSc.nextInt();
-            if (input == 1) {
-                System.out.println("Enter username");
-
-            } else if (input == 2) {
-
-                System.out.println("Create username");
-                Scanner usernameSc = new Scanner(System.in);
-                //Puts users input into variable "enterUsername"
-                String enteredUsername = "";
-                enteredUsername = usernameSc.nextLine();
-
-                boolean creatingUsername = true;
-                while (creatingUsername == true) {
-                    //Checks if Username list is not empty
-                    if (funk1.checkLine() == true) {
-                        //Checks for matches of Usernames
-                        boolean matchesUsername = false;
-                        while (funk1.checkLine()==true) {
-                            String username = "";
-                            username = funk1.readNextLine();
-                            if (enteredUsername.equals(username)){
-                                matchesUsername = true;
-                            }
-                        }
-                        //If match is not found adds username
-                        if (matchesUsername == false) {
-                            funk1.addUser(enteredUsername);
-                            creatingUsername = false;
-                            creatingAccount = false;
-                            //If match is found asks to repeat
-                        } else {
-                            System.out.println("This username is already taken, try another one");
-                        }
-                        //Adds user is Username list is empty
-                    } else {
-                        funk1.addUser(enteredUsername);
-                        creatingUsername = false;
-                        creatingAccount = false;
-                    }
-                }
-
-            } else {
+            Scanner menuScan = new Scanner(System.in);
+            int input = menuScan.nextInt();
+            if (input == 1)
+            {
+                logInfo = Account.logIn();
+                creatingAccount = logInfo.getFirst();
+                inSystem = logInfo.getSecond();
+                System.out.println("Logged in successfully");
+            } else if (input == 2)
+            {
+                logInfo = Account.creatingUser();
+                creatingAccount = logInfo.getFirst();
+                inSystem = logInfo.getSecond();
+                System.out.println("Account created");
+            } else
+            {
                 System.out.println("This option is not on menu, try again");
             }
         }
-
     }
 }
