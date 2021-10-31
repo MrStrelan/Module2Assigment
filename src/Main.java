@@ -6,7 +6,7 @@ import kotlin.Pair;
 
 public class Main {
     public static void main(String[] args) {
-/*
+
         //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
 
         ArrayList<Movie> movDB = new ArrayList<>();
@@ -15,7 +15,7 @@ public class Main {
         MovieDB.CreateMovie();
         MovieDB.UpdateMovie();
         FindMovie.Find();
-*/
+
 
         System.out.println("1. Log in");
         System.out.println("2. Create account");
