@@ -75,6 +75,7 @@ public class Movie implements Serializable {
 
         return "\n ID:"+getID()+", "+getTitle() +", "+ getDate()+",\n"+ getActorRole();
     }
+
     public String getActorRole(){
         StringBuilder display = new StringBuilder("with: ");
         for (int i = 0; i < getActors().size(); i++) {
@@ -84,7 +85,7 @@ public class Movie implements Serializable {
             }
         }
         return display.toString();
-    }
+    } //Print aid to nicely print the actor and their Role
 
 }
 
