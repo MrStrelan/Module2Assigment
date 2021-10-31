@@ -118,7 +118,7 @@ public class Menu {
         }
     }
 
-    //Prints the Admin Menu
+    //Prints the User Menu
     public static void menuUser() {
         Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
