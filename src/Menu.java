@@ -1,5 +1,3 @@
-import kotlin.Pair;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,7 +8,6 @@ public class Menu {
     public static void menuLog() {
         boolean creatingAccount = true;
         Scanner inputSc = new Scanner(System.in);
-        Pair<Boolean, Integer> logInfo;
         int inSystem;
         while (!creatingAccount) {
             String menuLogin = """
@@ -44,20 +41,17 @@ public class Menu {
             int input;
             input = checkInt();
             if (input == 1) {
-                //Account.CreateAccount()
-                logInfo = Account.logIn();
-                creatingAccount = logInfo.getFirst();
-                inSystem = logInfo.getSecond();
+                inSystem = Account.logIn().getUserID();
                 System.out.println("Logged in successfully");
                 Menu.flush();
-                Menu.menuUser();
+                Menu.menuUser(inSystem);
+                creatingAccount = Account.logIn().getMenuState();
             } else if (input == 2) {
-                logInfo = Account.creatingUser();
-                creatingAccount = logInfo.getFirst();
-                inSystem = logInfo.getSecond();
+                inSystem = Account.logIn().getUserID();
                 System.out.println("Account created");
                 Menu.flush();
-                Menu.menuUser();
+                Menu.menuUser(inSystem);
+                creatingAccount = Account.logIn().getMenuState();
             } else if (input == 3) {
                 creatingAccount = true;
             } else {
@@ -129,7 +123,8 @@ public class Menu {
     }
 
     //Prints the User Menu
-    public static void menuUser() {
+    public static void menuUser(int userID) {
+        Account currentUser = new Account();
         Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
         while (!useMenu) {
@@ -149,15 +144,11 @@ public class Menu {
                                                                         
                                                          1.Search Movie
                                                                         
-                                                         2.Create Movie
+                                                         2.See Favorites
                                 
-                                                         3.Update Movie
+                                                         3.See Statistics
                                 
-                                                         4.Delete Movie
-                                
-                                                         5.Log Out
-                                
-                                
+                                                         4.Log out
                                 
                     =====================================================================================================
                     """;
@@ -169,19 +160,20 @@ public class Menu {
                 FindMovie.Find();
             } else if (input == 2) {
                 Menu.flush();
-                MovieDB.CreateMovie();
+                for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
+                    FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
+                    System.out.println("");
+                }
             } else if (input == 3) {
                 Menu.flush();
-                MovieDB.UpdateMovie();
+                for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
+                    FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
+                    System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
+                    System.out.println("");
+                }
             } else if (input == 4) {
                 Menu.flush();
-                MovieDB.deleteMovieFromDB();
-            } else if (input == 5) {
-                Menu.flush();
                 useMenu = true;
-            } else if (input == 6) {
-                Menu.flush();
-                MovieDB.CopyMovie();
             } else {
                 Menu.print("This option is not on menu, try again");
             }
@@ -189,59 +181,59 @@ public class Menu {
     }
 
     //Flushes the Console to give a Clean
-    public static void flush(){
+    public static void flush() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     //Prints a single string in the menu way
-    public static void print(String str){
+    public static void print(String str) {
         String menuTop = """
-                                =====================================================================================================
-                                
-                                   _____                       __  __            _        _____        _        _                   
-                                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                                        __/ |                                                                       
-                                                       |___/                                                                        
-                                                              """;
+                =====================================================================================================
+                                                
+                   _____                       __  __            _        _____        _        _                   
+                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                        __/ |                                                                       
+                                       |___/                                                                        
+                                              """;
         String menuBottom = """
+                                                                 
+                                                                    
                                                                      
-                                                                        
-                                                                         
-                                
-                                                                        
-                                
-                                                                         
-                                
-                                                                         
-                                
-                                
-                                
-                    =====================================================================================================
-                    """;
+                            
+                                                                    
+                            
+                                                                     
+                            
+                                                                     
+                            
+                            
+                            
+                =====================================================================================================
+                """;
         System.out.println(menuTop);
-        System.out.println("                          "+str);
+        System.out.println("                          " + str);
         System.out.println(menuBottom);
 
     }
 
-    public static void printFind(){
+    public static void printFind() {
         String menuTop = """
-                                =====================================================================================================
-                                
-                                   _____                       __  __            _        _____        _        _                   
-                                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                                        __/ |                                                                       
-                                                       |___/                                                                        
-                                                              """;
+                =====================================================================================================
+                                                
+                   _____                       __  __            _        _____        _        _                   
+                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                        __/ |                                                                       
+                                       |___/                                                                        
+                                              """;
         System.out.println(menuTop);
 
     }
@@ -262,7 +254,7 @@ public class Menu {
         return check;
     }
 
-    public static int thisint(){
+    public static int thisint() {
         return 5;
     }
 }

@@ -1,9 +1,9 @@
-import kotlin.Pair;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Account implements Serializable {
+    boolean menuState;
+    int userID;
     private String login;
     private String password;
     private ArrayList<Integer> favMovies = new ArrayList<Integer>();
@@ -12,6 +12,20 @@ public class Account implements Serializable {
     private ArrayList<Integer> seenTimes = new ArrayList<>();
 
     private static FileManager dataBase = new FileManager();
+
+    public boolean getMenuState() {
+        return menuState;
+    }
+    public void setMenuState(boolean menuState) {
+        this.menuState = menuState;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
     public void setLogin(String login) {
         this.login = login;
@@ -64,7 +78,8 @@ public class Account implements Serializable {
     }
 
     //Complex functions
-    public static Pair<Boolean, Integer> logIn() {
+    public static Account logIn() {
+        Account storingValuables = new Account();
         System.out.println("Enter username");
         Scanner usernameScan = new Scanner(System.in);
         String usernameIn = usernameScan.nextLine();
@@ -79,21 +94,27 @@ public class Account implements Serializable {
                 Scanner passwordScan = new Scanner(System.in);
                 String passwordIn = passwordScan.nextLine();
                 if (passwordIn.equals(users.get(index).getPassword())) {
-                    return new Pair<Boolean, Integer>(false, index);
+                    storingValuables.setMenuState(false);
+                    storingValuables.setUserID(index);
+                    return storingValuables;
                 } else {
                     System.out.println("Password is wrong");
-                    return new Pair<Boolean, Integer>(true, 404);
+                    storingValuables.setMenuState(false);
+                    return storingValuables;
                 }
             } else {
                 System.out.println("This username doesn't exist\nTry again or create new account");
-                return new Pair<Boolean, Integer>(true, 404);
+                storingValuables.setMenuState(false);
+                return storingValuables;
             }
         }
         System.out.println("No users are created");
-        return new Pair<Boolean, Integer>(true, 404);
+        storingValuables.setMenuState(false);
+        return storingValuables;
     }
 
-    public static Pair<Boolean, Integer> creatingUser() {
+    public static Account creatingUser() {
+        Account storingValuables = new Account();
         ArrayList<Account> users = new ArrayList<Account>();
         users = dataBase.seeUsers();
         Account user = new Account();
@@ -120,7 +141,9 @@ public class Account implements Serializable {
         String password = passwordScan.nextLine();
         user.setPassword(password);
         dataBase.addUser(user);
-        return new Pair<Boolean, Integer>(false, users.size());
+        storingValuables.setUserID(users.size());
+        storingValuables.setMenuState(false);
+        return storingValuables;
     }
 
     public static void addFavorite(int ID, int inSystem) {
@@ -143,7 +166,7 @@ public class Account implements Serializable {
         dataBase.seeUsers().get(inSystem).addTimes(times);
     }
 
-    public static ArrayList<Integer> seenMovielist(int inSystem) {
+    public static ArrayList<Integer> seenMovieList(int inSystem) {
     return dataBase.seeUsers().get(inSystem).getSeenMovies();
     }
     public static ArrayList<Integer> seenMovieTimes(int inSystem) {
@@ -152,9 +175,45 @@ public class Account implements Serializable {
     public static ArrayList<Integer> seenMoviedate(int inSystem) {
         return dataBase.seeUsers().get(inSystem).getDates();
     }
-    public static ArrayList<Integer> seenFavorite(int inSystem) {
+    public static ArrayList<Integer> seeFavorite(int inSystem) {
         return dataBase.seeUsers().get(inSystem).getFavMovies();
     }
+    public static void watchMovie(int movieID, int inSystem)
+    {
+        System.out.println("""
+                    =====================================================================================================
+                                
+                       _____                       __  __            _        _____        _        _                   
+                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                            __/ |                                                                       
+                                           |___/                                                                        
+                        
+                                                   Would u like to add this movie to favorites?
+                                                                        
+                                                         1.Yes
+                                                                        
+                                                         2.No
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                
+                    =====================================================================================================
+                    """);
+
+        Scanner menuScan = new Scanner(System.in);
+        int menuIn = menuScan.nextInt();
+        if(menuIn==1)
+        {
+
+        }
+    }
+
 }
 
 
