@@ -37,7 +37,6 @@ public class FindMovie {
         int answer = Menu.checkInt();
         if (answer == 1) {
             Menu.flush();
-            Menu.printFind();
             FindMovie.SearchTitle();
         } else if (answer == 2) {
             Menu.flush();
@@ -45,15 +44,15 @@ public class FindMovie {
             FindMovie.SearchYear();
         } else if (answer == 3) {
             Menu.flush();
-            Menu.printFind();
+
             FindMovie.SearchActor();
         } else if (answer == 4) {
             Menu.flush();
-            Menu.printFind();
+
             FindMovie.SearchID();
         } else if (answer == 5) {
             Menu.flush();
-            Menu.printFind();
+
             FindMovie.SearchRoles();
         } else  {
             Menu.flush();
@@ -84,6 +83,7 @@ public class FindMovie {
         Menu.print("Insert Year to Search:");
         int s = Menu.checkInt();
         Movie mn = new Movie();
+        Menu.printFind();
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getDate() == s) {
@@ -118,6 +118,7 @@ public class FindMovie {
         Menu.print("Insert ID to search:");
         int i = Menu.checkInt();
         Movie mn = new Movie();
+        Menu.printFind();
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
@@ -131,6 +132,7 @@ public class FindMovie {
     public static void SearchByID(int i) {
         Scanner userInput = new Scanner(System.in);
         Movie mn = new Movie();
+        Menu.printFind();
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
@@ -146,6 +148,7 @@ public class FindMovie {
         Menu.print("Insert Role to Search: \\n (Case Sensitive)\"");
         CharSequence s = userInput.nextLine();
         Movie mn = new Movie();
+        Menu.printFind();
         for (Movie m : MovieDB.ReadDB()
         ) {
             for (int i = 0; i < m.getRoles().size(); i++) {
