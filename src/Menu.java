@@ -7,8 +7,7 @@ public class Menu {
     //Prints the first Menu
     public static void menuLog() {
         boolean creatingAccount = false;
-        Scanner inputSc = new Scanner(System.in);
-        while (!creatingAccount) {
+        while (creatingAccount==false) {
             String menuLogin = """
                     =====================================================================================================
                                 
@@ -49,6 +48,7 @@ public class Menu {
                     System.out.println("Logged in successfully");
                     Menu.flush();
                     Menu.menuUser(inSystem);
+                    creatingAccount=false;
                 }
             } else if (input == 2) {
                 Account storingValues;
@@ -59,6 +59,7 @@ public class Menu {
                     System.out.println("Account created");
                     Menu.flush();
                     Menu.menuUser(inSystem);
+                    creatingAccount=false;
                 }
             } else if (input == 3) {
                 creatingAccount = true;
@@ -135,7 +136,7 @@ public class Menu {
         Account currentUser = new Account();
         Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
-        while (!useMenu) {
+        while (useMenu==false) {
             String menuActions = """
                     =====================================================================================================
                                 
@@ -166,7 +167,7 @@ public class Menu {
             if (input == 1) {
                 Menu.flush();
                 FindMovie.Find();
-            //    Account.watchMovie(mavieID, );
+                //Account.watchMovie(mavieID, inSystem);
 
             } else if (input == 2) {
                 Menu.flush();
@@ -183,6 +184,7 @@ public class Menu {
                 }
             } else if (input == 4) {
                 Menu.flush();
+                useMenu=true;
             } else {
                 Menu.print("This option is not on menu, try again");
             }
