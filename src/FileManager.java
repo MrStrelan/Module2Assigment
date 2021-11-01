@@ -9,7 +9,7 @@ public class FileManager {
         ArrayList<Account> users = new ArrayList<>();
         users.add(user);
         try {
-            FileOutputStream addUsers = new FileOutputStream(usernames);
+            FileOutputStream addUsers = new FileOutputStream(usernames, true);
             ObjectOutputStream usernamesIN = new ObjectOutputStream(addUsers);
             usernamesIN.writeObject(users);
             addUsers.close();

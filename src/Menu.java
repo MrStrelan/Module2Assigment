@@ -2,13 +2,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    int inSystem;
+    static int inSystem;
 
     //Prints the first Menu
     public static void menuLog() {
         boolean creatingAccount = false;
         Scanner inputSc = new Scanner(System.in);
-        int inSystem;
         while (!creatingAccount) {
             String menuLogin = """
                     =====================================================================================================
@@ -41,17 +40,26 @@ public class Menu {
             int input;
             input = checkInt();
             if (input == 1) {
-                inSystem = Account.logIn().getUserID();
-                System.out.println("Logged in successfully");
-                Menu.flush();
-                Menu.menuUser(inSystem);
-                creatingAccount = Account.logIn().getMenuState();
+                Account storingValues;
+                storingValues = Account.logIn();
+                inSystem = storingValues.getUserID();
+                creatingAccount = storingValues.getMenuState();
+                if(creatingAccount==true)
+                {
+                    System.out.println("Logged in successfully");
+                    Menu.flush();
+                    Menu.menuUser(inSystem);
+                }
             } else if (input == 2) {
-                inSystem = Account.logIn().getUserID();
-                System.out.println("Account created");
-                Menu.flush();
-                Menu.menuUser(inSystem);
-                creatingAccount = Account.logIn().getMenuState();
+                Account storingValues;
+                storingValues = Account.creatingUser();
+                inSystem = storingValues.getUserID();
+                creatingAccount = storingValues.getMenuState();
+                if(creatingAccount==true) {
+                    System.out.println("Account created");
+                    Menu.flush();
+                    Menu.menuUser(inSystem);
+                }
             } else if (input == 3) {
                 creatingAccount = true;
             } else {
@@ -175,7 +183,6 @@ public class Menu {
                 }
             } else if (input == 4) {
                 Menu.flush();
-                useMenu = true;
             } else {
                 Menu.print("This option is not on menu, try again");
             }

@@ -95,7 +95,7 @@ public class Account implements Serializable {
                 Scanner passwordScan = new Scanner(System.in);
                 String passwordIn = passwordScan.nextLine();
                 if (passwordIn.equals(users.get(index).getPassword())) {
-                    storingValuables.setMenuState(false);
+                    storingValuables.setMenuState(true);
                     storingValuables.setUserID(index);
                     return storingValuables;
                 } else {
@@ -143,7 +143,7 @@ public class Account implements Serializable {
         user.setPassword(password);
         dataBase.addUser(user);
         storingValuables.setUserID(users.size());
-        storingValuables.setMenuState(false);
+        storingValuables.setMenuState(true);
         return storingValuables;
     }
 
