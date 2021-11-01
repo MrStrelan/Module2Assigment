@@ -30,10 +30,10 @@ public class FindMovie {
                                                   5.Roles
                                 
                                                                                                                                                                                 
-                
-                
-                
-                
+                                
+                                
+                                
+                                
                                                              
                 =====================================================================================================
                           
@@ -55,7 +55,7 @@ public class FindMovie {
         } else if (answer == 5) {
             Menu.flush();
             FindMovie.SearchRoles();
-        } else  {
+        } else {
             Menu.flush();
             Menu.print("Insert Valid Number:");
         }
@@ -64,11 +64,11 @@ public class FindMovie {
 
     public static void SearchTitle() {
         Scanner userInput = new Scanner(System.in);
-        int nr = 0;
         Menu.print("Insert Title to Search: (Case Sensitive)");
         CharSequence s = userInput.nextLine();
         Movie mn = new Movie();
         Menu.printFind();
+        int nr = 0;
         for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
             if (MovieDB.ReadDB().get(i).getTitle().contains(s)) {
                 System.out.println(MovieDB.ReadDB().get(i).toString());
@@ -76,7 +76,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        //if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr > 0) {Menu.spaceEnd(nr);}
         userInput.nextLine();
     }
 
@@ -86,17 +86,41 @@ public class FindMovie {
         int s = Menu.checkInt();
         Movie mn = new Movie();
         Menu.printFind();
-        for (Movie m : MovieDB.ReadDB()
-        ) {
-            if (m.getDate() == s) {
-                System.out.println(m);
-                //DisplayStatBasedOnAccount(m.getID())
+        int nr = 0;
+        for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
+            if (MovieDB.ReadDB().get(i).getDate() == s) {
+                System.out.println(MovieDB.ReadDB().get(i).toString());
+                nr++;
             }
         }
+        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr > 0) {Menu.spaceEnd(nr);}
         userInput.nextLine();
     }
 
     public static void SearchActor() {
+        Scanner userInput = new Scanner(System.in);
+        Menu.print("Insert Title to Search: (Case Sensitive)");
+        CharSequence s = userInput.nextLine();
+        Movie mn = new Movie();
+        Menu.printFind();
+        int nr = 0;
+        for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
+            for (int j = 0; j < MovieDB.ReadDB().get(i).getActors().size(); i++) {
+                if (MovieDB.ReadDB().get(i).getActors().get(j).contains(s)) {
+                    System.out.println(MovieDB.ReadDB());
+                    nr++;
+                }
+            }
+        }
+        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr > 0) {Menu.spaceEnd(nr);}
+        userInput.nextLine();
+
+    }
+
+
+    /*public static void SearchActor() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Insert Actor to Search: \n (Case Sensitive)\"");
         CharSequence s = userInput.nextLine();
@@ -113,7 +137,7 @@ public class FindMovie {
 
         }
         userInput.nextLine();
-    }
+    }*/
 
     public static void SearchID() {
         Scanner userInput = new Scanner(System.in);
@@ -168,15 +192,22 @@ public class FindMovie {
         Scanner userInput = new Scanner(System.in);
         boolean knowId = false;
         while (!knowId) {
-            System.out.println("Do you know the ID of the movie?: y/n");
+            Menu.print("Do you know the ID of the movie?: y/n");
             String respo = userInput.nextLine();
             if (respo.equals("y")) {
                 knowId = true;
             } else if (respo.equals("n")) {
-                System.out.println("Let's find that pesky ID");
+                Menu.print("Let's find that pesky ID");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Menu.flush();
                 FindMovie.Find();
                 knowId = true;
-            } else {System.out.println("try again");}
+            } else {Menu.print("try again");}
         }
     }
 }

@@ -6,7 +6,7 @@ public class Menu {
 
     //Prints the first Menu
     public static void menuLog() {
-        boolean creatingAccount = true;
+        boolean creatingAccount = false;
         Scanner inputSc = new Scanner(System.in);
         int inSystem;
         while (!creatingAccount) {
@@ -256,7 +256,21 @@ public class Menu {
         return check;
     }
 
-    public static int thisint() {
-        return 5;
+
+    //Prints a blank space as many times as needed and a end line
+    public static void spaceEnd(int nr){
+
+        String blank = """
+                
+                """;
+        String endline = """
+                =====================================================================================================
+                """;
+        if (nr >= 3){System.out.println(blank);}
+        if (nr == 2){System.out.println(blank.repeat(5));}
+        if (nr == 1){System.out.println(blank.repeat(11));}
+        System.out.println(endline);
     }
+
+
 }

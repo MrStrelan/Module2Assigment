@@ -118,7 +118,7 @@ public class MovieDB implements Serializable {
             String answ = userInput.nextLine();
             if (answ.equals("y")) {
                 FindMovie.knowID();
-                System.out.println("Enter ID:");
+                System.out.println("Enter ID of the movie you want to Update:");
                 int id = Menu.checkInt();
                 while (MovieDB.sameID(id)) {
                     System.out.println("ID not found. Enter different ID");
