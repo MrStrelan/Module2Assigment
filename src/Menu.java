@@ -293,5 +293,14 @@ public class Menu {
         System.out.println(endline);
     }
 
+    //makes 1 second wait
+    public static void wait1s(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

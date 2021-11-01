@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class FindMovie {
 
     //Menu interface that lets the user Find a movie in the DB
-    public static void Find(int userID) {
+    public static void Find() {
         Scanner userInput = new Scanner(System.in);
         String ask = """
                 =====================================================================================================
@@ -122,7 +122,7 @@ public class FindMovie {
     public static void SearchYearRange() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Searching Range of Years");
-        Menu.wait1s();
+        //Menu.wait1s();
         Menu.print("Insert Year to start:");
         int s = Menu.checkInt();
         Menu.print("Insert Year to end:");
@@ -249,7 +249,7 @@ public class FindMovie {
     }
 
     //Query that lets the user Search By
-    public static void knowID(int userID) {
+    public static void knowID() {
         Scanner userInput = new Scanner(System.in);
         boolean knowId = false;
         while (!knowId) {
@@ -266,7 +266,7 @@ public class FindMovie {
                 }
 
                 Menu.flush();
-                FindMovie.Find(userID);
+                FindMovie.Find();
                 knowId = true;
             } else {Menu.print("try again");}
         }

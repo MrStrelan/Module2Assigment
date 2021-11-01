@@ -116,7 +116,7 @@ public class MovieDB implements Serializable {
             Scanner userInput = new Scanner(System.in);
             String answ = userInput.nextLine();
             if (answ.equals("y")) {
-                FindMovie.knowID(1);
+                FindMovie.knowID();
                 System.out.println("Enter ID of the movie you want to Update:");
                 int id = Menu.checkInt();
                 while (MovieDB.sameID(id)) {
@@ -222,7 +222,7 @@ public class MovieDB implements Serializable {
         ArrayList<Movie> movDB;
         movDB = MovieDB.ReadDB();
         Scanner userInput = new Scanner(System.in);
-        FindMovie.knowID(1);
+        FindMovie.knowID();
         System.out.println("Insert the ID of the Movie");
         int id = Menu.checkInt();
 
@@ -284,7 +284,7 @@ public class MovieDB implements Serializable {
             Scanner userInput = new Scanner(System.in);
             String answ = userInput.nextLine();
             if (answ.equals("y")) {
-                FindMovie.knowID(1);
+                FindMovie.knowID();
                 System.out.println("Enter ID:");
                 int id = Menu.checkInt();
                 while (MovieDB.sameID(id)) {
