@@ -108,7 +108,7 @@ public class Menu {
             input = checkInt();
             if (input == 1) {
                 Menu.flush();
-                FindMovie.Find();
+                FindMovie.Find(1);
             } else if (input == 2) {
                 Menu.flush();
                 MovieDB.CreateMovie();
@@ -165,7 +165,7 @@ public class Menu {
             input = checkInt();
             if (input == 1) {
                 Menu.flush();
-                FindMovie.Find();
+                FindMovie.Find(userID);
             //    Account.watchMovie(mavieID, );
 
             } else if (input == 2) {
@@ -227,6 +227,7 @@ public class Menu {
         System.out.println(menuTop);
         System.out.println("                          " + str);
         System.out.println(menuBottom);
+        Menu.wait1s();
 
     }
 
@@ -279,5 +280,13 @@ public class Menu {
         System.out.println(endline);
     }
 
+    //makes 1 second wait
+    public static void wait1s(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
