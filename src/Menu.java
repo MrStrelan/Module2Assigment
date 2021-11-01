@@ -64,6 +64,9 @@ public class Menu {
                 }
             } else if (input == 3) {
                 creatingAccount = true;
+            } else if (input == 4) {
+                Menu.menuAdmin();
+                creatingAccount = true;
             } else {
                 Menu.flush();
                 Menu.print("This option is not on menu, try again");
