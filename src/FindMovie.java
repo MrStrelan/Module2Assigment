@@ -217,36 +217,7 @@ public class FindMovie {
         userInput.nextLine();
     }
 
-    //Query that lets the user Search By
-    public static void AddToFavSeen(int userID){
-        boolean run=true;
-        while (run){
-            Scanner userInput = new Scanner(System.in);
-            Menu.printFind();
-            System.out.println("Do you want to add a movie to your Favorites/Seen Movies?\n" +
-                    "1. Favourites\n" +
-                    "2. Seen");
-            Menu.spaceEnd(1);
-            int resp = Menu.checkInt();
-            if (resp == 1){
-                Menu.print("Insert ID of the movie you want to add to Favourites:");
-                int MovID = Menu.checkInt();
-                Account.addFavorite(MovID,userID);
-                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ "added to Favourites");
-                run=false;
-            }
-            if (resp == 2){
-                Menu.print("Insert ID of the movie you want to add to Seen:");
-                int MovID = Menu.checkInt();
-                Menu.print("Insert ID of the movie you want to add to Seen:");
 
-                //Account.addSeen(MovID,userID,);
-                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ "added to Favourites");
-                run=false;}
-            else {Menu.print("Insert proper answer");}
-        }
-
-    }
 
     //Query that lets the user Search By
     public static void knowID() {
