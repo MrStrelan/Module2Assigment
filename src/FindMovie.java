@@ -9,12 +9,12 @@ public class FindMovie {
         String ask = """
                 =====================================================================================================
                                 
-                   _____                       __  __            _        _____        _        _                   \s
-                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  \s
+                    _____                       __  __            _        _____        _        _                   \s
+                   / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  \s
                   | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___\s
                   | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
                   | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                 \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                          __/ |                                                                       \s
                                         |___/                                                                        \s
                                               How do you want to find the Movie?
@@ -30,10 +30,9 @@ public class FindMovie {
                                                   5.Roles
                                 
                                                                                                                                                                                 
-                                
-                                
-                                
-                                
+                                      
+                  
+                  
                                                              
                 =====================================================================================================
                           
@@ -45,7 +44,18 @@ public class FindMovie {
             FindMovie.SearchTitle();
         } else if (answer == 2) {
             Menu.flush();
-            FindMovie.SearchYear();
+            Menu.print("Do you want to search a range of years?y/n (n will search Single year)");
+            String asks = userInput.nextLine();
+            boolean resps = false;
+            while (!resps){
+                if (asks.equals("y")){
+                    FindMovie.SearchYearRange();
+                    resps = true;}
+                if (asks.equals("n")){
+                    FindMovie.SearchYear();
+                    resps = true;}
+                else {Menu.print("Please enter y or n");}
+            }
         } else if (answer == 3) {
             Menu.flush();
             FindMovie.SearchActor();
@@ -82,7 +92,14 @@ public class FindMovie {
 
     public static void SearchYear() {
         Scanner userInput = new Scanner(System.in);
+        Menu.print("Searching single Year");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Menu.print("Insert Year to Search:");
+
         int s = Menu.checkInt();
         Movie mn = new Movie();
         Menu.printFind();
@@ -98,17 +115,43 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    public static void SearchYearRange() {
+        Scanner userInput = new Scanner(System.in);
+        Menu.print("Searching Range of Years");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Menu.print("Insert Year to start:");
+        int s = Menu.checkInt();
+        Menu.print("Insert Year to end:");
+        int e = Menu.checkInt();
+        Movie mn = new Movie();
+        Menu.printFind();
+        int nr = 0;
+        for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
+            if (MovieDB.ReadDB().get(i).getDate() >= s && MovieDB.ReadDB().get(i).getDate() <= e) {
+                System.out.println(MovieDB.ReadDB().get(i).toString());
+                nr++;
+            }
+        }
+        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr > 0) {Menu.spaceEnd(nr);}
+        userInput.nextLine();
+    }
+
     public static void SearchActor() {
         Scanner userInput = new Scanner(System.in);
-        Menu.print("Insert Title to Search: (Case Sensitive)");
+        Menu.print("Insert Actor to Search: (Case Sensitive)");
         CharSequence s = userInput.nextLine();
         Movie mn = new Movie();
         Menu.printFind();
         int nr = 0;
         for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
-            for (int j = 0; j < MovieDB.ReadDB().get(i).getActors().size(); i++) {
+            for (int j = 0; j < MovieDB.ReadDB().get(i).getActors().size(); j++) {
                 if (MovieDB.ReadDB().get(i).getActors().get(j).contains(s)) {
-                    System.out.println(MovieDB.ReadDB());
+                    System.out.println(MovieDB.ReadDB().get(i));
                     nr++;
                 }
             }
@@ -118,26 +161,6 @@ public class FindMovie {
         userInput.nextLine();
 
     }
-
-
-    /*public static void SearchActor() {
-        Scanner userInput = new Scanner(System.in);
-        Menu.print("Insert Actor to Search: \n (Case Sensitive)\"");
-        CharSequence s = userInput.nextLine();
-        Movie mn = new Movie();
-        for (Movie m : MovieDB.ReadDB()
-        ) {
-            for (int i = 0; i < m.getActors().size(); i++) {
-                if (m.getActors().get(i).contains(s)) {
-                    System.out.println(m);
-                    //DisplayStatBasedOnAccount(m.getID())
-                }
-
-            }
-
-        }
-        userInput.nextLine();
-    }*/
 
     public static void SearchID() {
         Scanner userInput = new Scanner(System.in);
@@ -155,6 +178,27 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    public static void SearchRoles() {
+        Scanner userInput = new Scanner(System.in);
+        Menu.print("Insert Role to Search: (Case Sensitive)");
+        CharSequence s = userInput.nextLine();
+        Movie mn = new Movie();
+        Menu.printFind();
+        int nr = 0;
+        for (int i = 0; i < MovieDB.ReadDB().size(); i++) {
+            for (int j = 0; j < MovieDB.ReadDB().get(i).getRoles().size(); j++) {
+                if (MovieDB.ReadDB().get(i).getRoles().get(j).contains(s)) {
+                    System.out.println(MovieDB.ReadDB().get(i));
+                    nr++;
+                }
+            }
+        }
+        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr > 0) {Menu.spaceEnd(nr);}
+        userInput.nextLine();
+
+    }
+
     public static void SearchByID(int i) {
         Scanner userInput = new Scanner(System.in);
         Movie mn = new Movie();
@@ -164,25 +208,6 @@ public class FindMovie {
             if (m.getID() == i) {
                 System.out.println(m);
                 //DisplayStatBasedOnAccount(m.getID())
-            }
-        }
-        userInput.nextLine();
-    }
-
-    public static void SearchRoles() {
-        Scanner userInput = new Scanner(System.in);
-        Menu.print("Insert Role to Search: \\n (Case Sensitive)\"");
-        CharSequence s = userInput.nextLine();
-        Movie mn = new Movie();
-        Menu.printFind();
-        for (Movie m : MovieDB.ReadDB()
-        ) {
-            for (int i = 0; i < m.getRoles().size(); i++) {
-                if (m.getRoles().get(i).contains(s)) {
-                    System.out.println(m);
-                    //DisplayStatBasedOnAccount(m.getID())
-                }
-
             }
         }
         userInput.nextLine();
