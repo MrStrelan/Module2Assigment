@@ -162,27 +162,39 @@ public class Menu {
                     =====================================================================================================
                     """;
             System.out.println(menuActions);
-            int input;
-            input = checkInt();
-            if (input == 1) {
+            int inputUsMenu = checkInt();
+            if (inputUsMenu == 1) {
                 Menu.flush();
                 FindMovie.Find();
-                //Account.watchMovie(mavieID, inSystem);
+                int inputSeeMovie = checkInt();
+                String str = "1.Watch one of movies in the list above\n" +
+                             "2.Add to favorites one of movies above"+
+                             "3.Back to menu";
+                print(str);
+                if(inputSeeMovie==1)
+                {
+                  //  Account.watchMovie(mavieID, inSystem);
+                }else if(inputSeeMovie==2)
+                {
 
-            } else if (input == 2) {
+                }else {
+                    System.out.println("This option is not on menu, try again");
+                }
+
+            } else if (inputUsMenu == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("");
                 }
-            } else if (input == 3) {
+            } else if (inputUsMenu == 3) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
                     System.out.println("");
                 }
-            } else if (input == 4) {
+            } else if (inputUsMenu == 4) {
                 Menu.flush();
                 useMenu=true;
             } else {
