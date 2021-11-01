@@ -248,6 +248,7 @@ public class Account implements Serializable {
         }
         LocalDate date = LocalDate.now();
         addSeen(movieID, inSystem, date);
+        System.out.println("MovieID: "+movieID+"  UserID: "+inSystem+" Date: "+date);
     }
 
 }
