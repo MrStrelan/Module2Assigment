@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -63,10 +62,10 @@ public class MovieDB implements Serializable {
 
                 Random rand = new Random();
                 //System.out.println("Insert Movie ID:");
-                int id = rand.nextInt(9999);
+                int id = rand.nextInt(9999 + 10);
                 while (MovieDB.sameID(id)) {//checks id the id is already in use
                     //System.out.println("ID already in use. Enter different ID");
-                    id = rand.nextInt(9999);
+                    id = rand.nextInt(9999 + 10);
                 }
                 //Add Year
                 System.out.println("Insert Movie Release Year:");
@@ -355,10 +354,10 @@ public class MovieDB implements Serializable {
 
                 Random rand = new Random();
                 //System.out.println("Insert Movie ID:");
-                int idt = rand.nextInt(9999);
+                int idt = rand.nextInt(9999 +10);
                 while (MovieDB.sameID(id)) {//checks id the id is already in use
                     //System.out.println("ID already in use. Enter different ID");
-                    idt = rand.nextInt(9999);
+                    idt = rand.nextInt(9999+10);
                 }
                 mn.setID(idt);
                 MovieDB.addMovietoDB(mn);

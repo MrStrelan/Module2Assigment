@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class FindMovie {
 
+    //Menu interface that lets the user Find a movie in the DB
     public static void Find() {
         Scanner userInput = new Scanner(System.in);
         String ask = """
@@ -72,6 +73,7 @@ public class FindMovie {
 
     }
 
+    //Query that lets the user Search By Title
     public static void SearchTitle() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Insert Title to Search: (Case Sensitive)");
@@ -90,6 +92,7 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    //Query that lets the user Search By Release Year
     public static void SearchYear() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Searching single Year");
@@ -115,14 +118,11 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    //Query that lets the user Search By a Range of Production Years
     public static void SearchYearRange() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Searching Range of Years");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //Menu.wait1s();
         Menu.print("Insert Year to start:");
         int s = Menu.checkInt();
         Menu.print("Insert Year to end:");
@@ -136,11 +136,12 @@ public class FindMovie {
                 nr++;
             }
         }
-        if (nr == 0) {Menu.print("Could not find any movie, try again");}
+        if (nr == 0) {Menu.print("Could not find any movie, try again");Menu.wait1s();}
         if (nr > 0) {Menu.spaceEnd(nr);}
         userInput.nextLine();
     }
 
+    //Query that lets the user Search By Actors
     public static void SearchActor() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Insert Actor to Search: (Case Sensitive)");
@@ -162,6 +163,7 @@ public class FindMovie {
 
     }
 
+    //Query that lets the user Search By ID
     public static void SearchID() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Insert ID to search:");
@@ -178,6 +180,7 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    //Query that lets the user Search By Roles
     public static void SearchRoles() {
         Scanner userInput = new Scanner(System.in);
         Menu.print("Insert Role to Search: (Case Sensitive)");
@@ -199,6 +202,7 @@ public class FindMovie {
 
     }
 
+    //Query that lets the system display  Search By
     public static void SearchByID(int i) {
         Scanner userInput = new Scanner(System.in);
         Movie mn = new Movie();
@@ -213,6 +217,38 @@ public class FindMovie {
         userInput.nextLine();
     }
 
+    //Query that lets the user Search By
+    public static void AddToFavSeen(int userID){
+        boolean run=true;
+        while (run){
+            Scanner userInput = new Scanner(System.in);
+            Menu.printFind();
+            System.out.println("Do you want to add a movie to your Favorites/Seen Movies?\n" +
+                    "1. Favourites\n" +
+                    "2. Seen");
+            Menu.spaceEnd(1);
+            int resp = Menu.checkInt();
+            if (resp == 1){
+                Menu.print("Insert ID of the movie you want to add to Favourites:");
+                int MovID = Menu.checkInt();
+                Account.addFavorite(MovID,userID);
+                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ "added to Favourites");
+                run=false;
+            }
+            if (resp == 2){
+                Menu.print("Insert ID of the movie you want to add to Seen:");
+                int MovID = Menu.checkInt();
+                Menu.print("Insert ID of the movie you want to add to Seen:");
+
+                //Account.addSeen(MovID,userID,);
+                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ "added to Favourites");
+                run=false;}
+            else {Menu.print("Insert proper answer");}
+        }
+
+    }
+
+    //Query that lets the user Search By
     public static void knowID() {
         Scanner userInput = new Scanner(System.in);
         boolean knowId = false;
