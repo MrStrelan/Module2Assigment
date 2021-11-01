@@ -240,9 +240,7 @@ public class Account implements Serializable {
                             
                 =====================================================================================================
                 """);
-
-        Scanner menuScan = new Scanner(System.in);
-        int menuIn = menuScan.nextInt();
+        int menuIn = Menu.checkInt();
         if (menuIn == 1) {
             dataBase.seeUsers().get(inSystem).addFavorite(movieID);
         }

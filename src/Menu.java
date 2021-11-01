@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Menu {
     static int inSystem;
@@ -171,9 +172,10 @@ public class Menu {
                              "2.Add to favorites one of movies above"+
                              "3.Back to menu";
                 print(str);
+                int movieID = 9822;
                 if(inputSeeMovie==1)
                 {
-                  //  Account.watchMovie(mavieID, inSystem);
+                    Account.watchMovie(movieID, inSystem);
                 }else if(inputSeeMovie==2)
                 {
 
