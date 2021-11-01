@@ -167,7 +167,8 @@ public class Menu {
             if (inputUsMenu == 1) {
                 Menu.flush();
                 FindMovie.Find();
-                int inputSeeMovie = checkInt();
+                Menu.AddToFavSeen(userID);
+                /*int inputSeeMovie = checkInt();
                 String str = "1.Watch one of movies in the list above\n" +
                              "2.Add to favorites one of movies above"+
                              "3.Back to menu";
@@ -181,8 +182,7 @@ public class Menu {
 
                 }else {
                     System.out.println("This option is not on menu, try again");
-                }
-
+                }*/
             } else if (inputUsMenu == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
@@ -279,6 +279,47 @@ public class Menu {
         return check;
     }
 
+    //Query that lets the user Search By
+    public static void AddToFavSeen(int userID){
+        boolean run=true;
+        while (run){
+            Scanner userInput = new Scanner(System.in);
+            Menu.printFind();
+            System.out.println("Do you want to add a movie to your Favorites/Seen Movies?\n" +
+                    "1. Watch one of movies in the list above\\n\n" +
+                    "2. Add to Favorites one of movies above\n" +
+                    "3. Add to Seen onr of the movies above" +
+                    "3. Back to the Menu");
+            Menu.spaceEnd(1);
+            int resp = Menu.checkInt();
+            if (resp == 1){//Watch a movie
+                Menu.print("Insert ID of the movie you want to add to Watched:");
+                int MovID = Menu.checkInt();
+                Account.watchMovie(MovID,userID);
+                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ " added to Watched");
+                run=false;}
+
+            if (resp == 2){//Add to Fav
+                Menu.print("Insert ID of the movie you want to add to Favourites:");
+                int MovID = Menu.checkInt();
+                Account.addFavorite(MovID,userID);
+                //Account.addSeen(MovID,userID,);
+                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ " added to Favourites");
+                run=false;}
+            if (resp == 3){//Add to Seen
+                Menu.print("Insert ID of the movie you want to add to Seen:");
+                int MovID = Menu.checkInt();
+                //Menu.print("Insert ID of the movie you want to add to Seen:");
+
+                //Account.addSeen(MovID,userID,);
+                Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ " added to Seen");
+                run=false;}
+            if (resp == 4){//Back to menu
+                run=false;}
+            else {Menu.print("Insert proper answer");}
+        }
+
+    }
 
     //Prints a blank space as many times as needed and a end line
     public static void spaceEnd(int nr){
