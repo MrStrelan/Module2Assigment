@@ -6,10 +6,11 @@ public class FileManager {
     File usernames = new File("Accounts.txt");
 
     public void addUser(Account user) {
-        ArrayList<Account> users = new ArrayList<>();
+
+        ArrayList<Account> users = seeUsers();
         users.add(user);
         try {
-            FileOutputStream addUsers = new FileOutputStream(usernames, true);
+            FileOutputStream addUsers = new FileOutputStream(usernames);
             ObjectOutputStream usernamesIN = new ObjectOutputStream(addUsers);
             usernamesIN.writeObject(users);
             addUsers.close();

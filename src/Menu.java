@@ -7,8 +7,7 @@ public class Menu {
     //Prints the first Menu
     public static void menuLog() {
         boolean creatingAccount = false;
-        Scanner inputSc = new Scanner(System.in);
-        while (!creatingAccount) {
+        while (creatingAccount==false) {
             String menuLogin = """
                     =====================================================================================================
                                 
@@ -49,6 +48,7 @@ public class Menu {
                     System.out.println("Logged in successfully");
                     Menu.flush();
                     Menu.menuUser(inSystem);
+                    creatingAccount=false;
                 }
             } else if (input == 2) {
                 Account storingValues;
@@ -59,6 +59,7 @@ public class Menu {
                     System.out.println("Account created");
                     Menu.flush();
                     Menu.menuUser(inSystem);
+                    creatingAccount=false;
                 }
             } else if (input == 3) {
                 creatingAccount = true;
@@ -108,7 +109,7 @@ public class Menu {
             input = checkInt();
             if (input == 1) {
                 Menu.flush();
-                FindMovie.Find(1);
+                FindMovie.Find();
             } else if (input == 2) {
                 Menu.flush();
                 MovieDB.CreateMovie();
@@ -135,7 +136,7 @@ public class Menu {
         Account currentUser = new Account();
         Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
-        while (!useMenu) {
+        while (useMenu==false) {
             String menuActions = """
                     =====================================================================================================
                                 
@@ -161,28 +162,41 @@ public class Menu {
                     =====================================================================================================
                     """;
             System.out.println(menuActions);
-            int input;
-            input = checkInt();
-            if (input == 1) {
+            int inputUsMenu = checkInt();
+            if (inputUsMenu == 1) {
                 Menu.flush();
-                FindMovie.Find(userID);
-            //    Account.watchMovie(mavieID, );
+                FindMovie.Find();
+                int inputSeeMovie = checkInt();
+                String str = "1.Watch one of movies in the list above\n" +
+                             "2.Add to favorites one of movies above"+
+                             "3.Back to menu";
+                print(str);
+                if(inputSeeMovie==1)
+                {
+                  //  Account.watchMovie(mavieID, inSystem);
+                }else if(inputSeeMovie==2)
+                {
 
-            } else if (input == 2) {
+                }else {
+                    System.out.println("This option is not on menu, try again");
+                }
+
+            } else if (inputUsMenu == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("");
                 }
-            } else if (input == 3) {
+            } else if (inputUsMenu == 3) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
                     System.out.println("");
                 }
-            } else if (input == 4) {
+            } else if (inputUsMenu == 4) {
                 Menu.flush();
+                useMenu=true;
             } else {
                 Menu.print("This option is not on menu, try again");
             }
@@ -227,7 +241,6 @@ public class Menu {
         System.out.println(menuTop);
         System.out.println("                          " + str);
         System.out.println(menuBottom);
-        Menu.wait1s();
 
     }
 
@@ -280,13 +293,5 @@ public class Menu {
         System.out.println(endline);
     }
 
-    //makes 1 second wait
-    public static void wait1s(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
