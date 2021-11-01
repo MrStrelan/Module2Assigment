@@ -135,7 +135,6 @@ public class Menu {
     //Prints the User Menu
     public static void menuUser(int userID) {
         Account currentUser = new Account();
-        Scanner inputSc = new Scanner(System.in);
         boolean useMenu = false;
         while (useMenu==false) {
             String menuActions = """
@@ -168,21 +167,6 @@ public class Menu {
                 Menu.flush();
                 FindMovie.Find();
                 Menu.AddToFavSeen(userID);
-                /*int inputSeeMovie = checkInt();
-                String str = "1.Watch one of movies in the list above\n" +
-                             "2.Add to favorites one of movies above"+
-                             "3.Back to menu";
-                print(str);
-                int movieID = 9822;
-                if(inputSeeMovie==1)
-                {
-                    Account.watchMovie(movieID, inSystem);
-                }else if(inputSeeMovie==2)
-                {
-
-                }else {
-                    System.out.println("This option is not on menu, try again");
-                }*/
             } else if (inputUsMenu == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
