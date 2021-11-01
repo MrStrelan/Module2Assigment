@@ -158,6 +158,8 @@ public class Menu {
             if (input == 1) {
                 Menu.flush();
                 FindMovie.Find();
+            //    Account.watchMovie(mavieID, );
+
             } else if (input == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {

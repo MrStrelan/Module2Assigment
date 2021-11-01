@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 public class Account implements Serializable {
     boolean menuState;
     int userID;
@@ -8,7 +9,7 @@ public class Account implements Serializable {
     private String password;
     private ArrayList<Integer> favMovies = new ArrayList<Integer>();
     private ArrayList<Integer> seenMovies = new ArrayList<Integer>();
-    private ArrayList<Integer> seenDate = new ArrayList<Integer>();
+    private ArrayList<LocalDate> seenDate = new ArrayList<LocalDate>();
     private ArrayList<Integer> seenTimes = new ArrayList<>();
 
     private static FileManager dataBase = new FileManager();
@@ -47,7 +48,7 @@ public class Account implements Serializable {
     public void addSeen(int num) {
         seenMovies.add(num);
     }
-    public void addDate(int num) {
+    public void addDate(LocalDate num) {
         seenDate.add(num);
     }
     public void addTimes(int num) {
@@ -60,7 +61,7 @@ public class Account implements Serializable {
     public ArrayList<Integer> getTimes() {
         return seenTimes;
     }
-    public ArrayList<Integer> getDates() {
+    public ArrayList<LocalDate> getDates() {
         return seenDate;
     }
     public ArrayList<Integer> getSeenMovies() {
@@ -154,7 +155,7 @@ public class Account implements Serializable {
         dataBase.seeUsers().get(inSystem).getFavMovies().remove(ID);
     }
     //Id is movie Id
-    public static void addSeen(int ID, int inSystem, int date) {
+    public static void addSeen(int ID, int inSystem, LocalDate date) {
         dataBase.seeUsers().get(inSystem).addSeen(ID);
         dataBase.seeUsers().get(inSystem).addDate(date);
         int times = dataBase.seeUsers().get(inSystem).getTimes(inSystem);
@@ -172,7 +173,7 @@ public class Account implements Serializable {
     public static ArrayList<Integer> seenMovieTimes(int inSystem) {
         return dataBase.seeUsers().get(inSystem).getTimes();
     }
-    public static ArrayList<Integer> seenMoviedate(int inSystem) {
+    public static ArrayList<LocalDate> seenMoviedate(int inSystem) {
         return dataBase.seeUsers().get(inSystem).getDates();
     }
     public static ArrayList<Integer> seeFavorite(int inSystem) {
@@ -215,8 +216,8 @@ public class Account implements Serializable {
         {
             dataBase.seeUsers().get(inSystem).addFavorite(movieID);
         }
-        addSeen(movieID,inSystem,5);
-
+        LocalDate date = LocalDate.now();
+        addSeen(movieID,inSystem,date);
     }
 
 }

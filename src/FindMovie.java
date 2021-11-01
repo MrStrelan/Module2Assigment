@@ -58,7 +58,6 @@ public class FindMovie {
         } else  {
             Menu.flush();
             Menu.print("Insert Valid Number:");
-
         }
 
     }
