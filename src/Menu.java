@@ -168,20 +168,23 @@ public class Menu {
             int inputUsMenu = checkInt();
             if (inputUsMenu == 1) {
                 Menu.flush();
-                FindMovie.Find();
-                Menu.AddToFavSeen(userID);
+                boolean foundMovies = false;
+                foundMovies = FindMovie.Find();
+                if(foundMovies==true) {
+                    Menu.AddToFavSeen(userID);
+                }
             } else if (inputUsMenu == 2) {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
-                    System.out.println("");
+                    System.out.println("empty 2");
                 }
             } else if (inputUsMenu == 3) {
                 Menu.flush();
-                for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
+                for (int i = 0; i <= currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
-                    System.out.println("");
+                    System.out.println("emty 3");
                 }
             } else if (inputUsMenu == 4) {
                 Menu.flush();
@@ -275,7 +278,7 @@ public class Menu {
             System.out.println("Do you want to add a movie to your Favorites/Seen Movies?\n" +
                     "1. Watch one of movies in the list above\\n\n" +
                     "2. Add to Favorites one of movies above\n" +
-                    "3. Add to Seen onr of the movies above" +
+                    "3. Add to Seen one of the movies above" +
                     "3. Back to the Menu");
             Menu.spaceEnd(1);
             int resp = Menu.checkInt();
@@ -296,9 +299,14 @@ public class Menu {
             if (resp == 3){//Add to Seen
                 Menu.print("Insert ID of the movie you want to add to Seen:");
                 int MovID = Menu.checkInt();
-                //Menu.print("Insert ID of the movie you want to add to Seen:");
-
-                //Account.addSeen(MovID,userID,);
+                Menu.print("Insert year you have seen it");
+                int year = Menu.checkInt();
+                Menu.print("Insert month you have seen it");
+                int month = Menu.checkInt();
+                Menu.print("Insert day you have seen it");
+                int day = Menu.checkInt();
+                LocalDate firstSeen = LocalDate.of(year, month,day);
+                Account.addSeen(MovID,userID,firstSeen);
                 Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle()+ " added to Seen");
                 run=false;}
             if (resp == 4){//Back to menu

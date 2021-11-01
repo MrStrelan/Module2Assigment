@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class FindMovie {
 
     //Menu interface that lets the user Find a movie in the DB
-    public static void Find() {
+    public static boolean Find() {
         Scanner userInput = new Scanner(System.in);
         String ask = """
                 =====================================================================================================
@@ -29,7 +29,8 @@ public class FindMovie {
                                                   4.ID
                             
                                                   5.Roles
-                                
+                                                  
+                                                  6.Back                               
                                                                                                                                                                                 
                                       
                   
@@ -43,6 +44,7 @@ public class FindMovie {
         if (answer == 1) {
             Menu.flush();
             FindMovie.SearchTitle();
+            return true;
         } else if (answer == 2) {
             Menu.flush();
             Menu.print("Do you want to search a range of years?y/n (n will search Single year)");
@@ -57,18 +59,27 @@ public class FindMovie {
                     resps = true;}
                 else {Menu.print("Please enter y or n");}
             }
+            return true;
         } else if (answer == 3) {
             Menu.flush();
             FindMovie.SearchActor();
+            return true;
         } else if (answer == 4) {
             Menu.flush();
             FindMovie.SearchID();
+            return true;
         } else if (answer == 5) {
             Menu.flush();
             FindMovie.SearchRoles();
-        } else {
+            return true;
+        } else if (answer == 6)
+        {
+            return false;
+        }
+        else {
             Menu.flush();
             Menu.print("Insert Valid Number:");
+            return true;
         }
 
     }

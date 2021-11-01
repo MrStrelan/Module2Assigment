@@ -221,19 +221,19 @@ public class Account implements Serializable {
                 int times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
                 dataBase.seeUsers().get(inSystem).seenTimes.set(i, times);
-                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i));
+                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i));
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
                 addSeen(movieID, inSystem, date);
-                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
+                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
             }
         }
         if(seenEmpty = true)
         {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
-            System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
+            //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
         }
         boolean favEmpty = true;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
@@ -303,7 +303,7 @@ public class Account implements Serializable {
             }
 
         }
-        if(favEmpty)
+        if(favEmpty==true)
         {
             System.out.println("");
             System.out.println("""
@@ -336,6 +336,7 @@ public class Account implements Serializable {
                 dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
             }
         }
+        System.out.println(dataBase.seeUsers().get(inSystem).favMovies);
     }
 }
 
