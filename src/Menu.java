@@ -183,7 +183,7 @@ public class Menu {
                 }
             } else if (inputUsMenu == 3) {
                 Menu.flush();
-                for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
+                for (int i = 0; i <currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
                 }
@@ -343,7 +343,7 @@ public class Menu {
     //makes 1 second wait
     public static void wait1s() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

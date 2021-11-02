@@ -194,13 +194,16 @@ public class Account implements Serializable {
 
     public static void addFavorite(int ID, int inSystem) {
         ArrayList<Account> saving = dataBase.seeUsers();
-        saving.get(inSystem).addFavorite(ID);
+        saving.get(inSystem).favMovies.add(ID);
         dataBase.saveChange(saving);
     }
 
     public static void deleteFavorite(int ID, int inSystem) {
         ArrayList<Account> saving = dataBase.seeUsers();
-        saving.get(inSystem).getFavMovies().remove(ID);
+        for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
+            if (ID == dataBase.seeUsers().get(inSystem).favMovies.get(i))
+                saving.get(inSystem).favMovies.remove(i);
+        }
         dataBase.saveChange(saving);
     }
     //ID is movie Id
@@ -211,13 +214,16 @@ public class Account implements Serializable {
             if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
                 repeats=true;
                 saving.get(inSystem).seenTimes.set(i,dataBase.seeUsers().get(inSystem).seenTimes.get(i));
+                System.out.println("ID: "+saving.get(inSystem).seenMovies.get(i)+" Date: "+saving.get(inSystem).seenDate.get(0)+" Times: "+saving.get(inSystem).seenTimes.get(i));
+
             }
         }
-        if(repeats=false)
+        if(repeats==false)
         {
-            saving.get(inSystem).addSeenMovie(ID);
-            saving.get(inSystem).addDate(date);
-            saving.get(inSystem).addTimes(1);
+            saving.get(inSystem).seenMovies.add(ID);
+            saving.get(inSystem).seenDate.add(date);
+            saving.get(inSystem).seenTimes.add(1);
+            System.out.println("ID: "+saving.get(inSystem).seenMovies.size()+" Date: "+saving.get(inSystem).seenDate.size()+" Times: "+saving.get(inSystem).seenTimes.size());
         }
         dataBase.saveChange(saving);
     }
@@ -231,11 +237,13 @@ public class Account implements Serializable {
         int index;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
             seenEmpty = false;
-            if (movieID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
+            if (movieID == dataBase.seeUsers().get(inSystem).seenMovies.get(i)) {
                 seen = true;
-                int times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
+                Integer times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
                 saving.get(inSystem).seenTimes.set(i, times);
+                System.out.println("ID: "+saving.get(inSystem).seenMovies.get(i)+" Date: "+saving.get(inSystem).seenDate.get(i)+" Times: "+saving.get(inSystem).seenTimes.get(i));
+
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
