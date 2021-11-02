@@ -97,12 +97,12 @@ public class Account implements Serializable {
         ArrayList<Account> users = dataBase.seeUsers();
         /*----------------------------------------------------------------------------------------
         for (int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i).getLogin());
+            Menu.print(users.get(i).getLogin());
         }
         System.out.println("" +
                 "" +
                 "");*/
-        System.out.println("Enter username");
+        Menu.print("Enter username");
         Scanner usernameScan = new Scanner(System.in);
         String usernameIn = usernameScan.nextLine();
         boolean repeats = false;
@@ -111,7 +111,7 @@ public class Account implements Serializable {
             if (usernameIn.equals(users.get(i).getLogin())) {
                 index = i;
                 repeats = true;
-                System.out.println("Enter password");
+                Menu.print("Enter password");
                 Scanner passwordScan = new Scanner(System.in);
                 String passwordIn = passwordScan.nextLine();
                 if (passwordIn.equals(users.get(index).getPassword())) {
@@ -119,18 +119,18 @@ public class Account implements Serializable {
                     storingValuables.setUserID(index);
                     return storingValuables;
                 } else {
-                    System.out.println("Password is wrong");
+                    Menu.print("Password is wrong");
                     storingValuables.setMenuState(false);
                     return storingValuables;
                 }
             }
             if (repeats = false) {
-                System.out.println("This username doesn't exist\nTry again or create new account");
+                Menu.print("This username doesn't exist - Try again or create new account");
                 storingValuables.setMenuState(false);
                 return storingValuables;
             }
         }
-        System.out.println("No users are created");
+        Menu.print("No users are created");
         storingValuables.setMenuState(false);
         return storingValuables;
     }
@@ -142,29 +142,29 @@ public class Account implements Serializable {
         for (int i = 0; i < users.size(); i++) {
             System.out.println(users.get(i).getLogin());
         }
-        System.out.println("" +
+        Menu.print("" +
                 "" +
                 "");*/
         Account user = new Account();
         boolean creatingUsername = true;
         while (creatingUsername == true) {
-            System.out.println("Create username");
+            Menu.print("Create username");
             Scanner usernameScan = new Scanner(System.in);
             String usernameIn = usernameScan.nextLine();
             boolean repeats = false;
             for (int i = 0; i < users.size(); i++) {
                 if (usernameIn.equals(users.get(i).getLogin())) {
                     repeats = true;
-                    System.out.println("This username is already taken, try another one");
+                    Menu.print("This username is already taken, try another one");
                 }
             }
             if (repeats == false) {
                 user.setLogin(usernameIn);
-                System.out.println("Username created");
+                Menu.print("Username created");
                 creatingUsername = false;
             }
         }
-        System.out.println("Now please choose password");
+        Menu.print("Now please choose password");
         Scanner passwordScan = new Scanner(System.in);
         String password = passwordScan.nextLine();
         user.setPassword(password);
@@ -336,7 +336,7 @@ public class Account implements Serializable {
                 dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
             }
         }
-        System.out.println(dataBase.seeUsers().get(inSystem).favMovies);
+        Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
     }
 }
 
