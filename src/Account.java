@@ -206,24 +206,22 @@ public class Account implements Serializable {
         }
         dataBase.saveChange(saving);
     }
+
+
     //ID is movie Id
     public static void addSeen(int ID, int inSystem, LocalDate date) {
         ArrayList<Account> saving = dataBase.seeUsers();
         boolean repeats = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
             if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
-                repeats=true;
-                saving.get(inSystem).seenTimes.set(i,dataBase.seeUsers().get(inSystem).seenTimes.get(i));
-                System.out.println("ID: "+saving.get(inSystem).seenMovies.get(i)+" Date: "+saving.get(inSystem).seenDate.get(0)+" Times: "+saving.get(inSystem).seenTimes.get(i));
-
+                repeats = true;
+                saving.get(inSystem).seenTimes.set(i, dataBase.seeUsers().get(inSystem).seenTimes.get(i));
             }
         }
-        if(repeats==false)
-        {
+        if (repeats == false) {
             saving.get(inSystem).seenMovies.add(ID);
             saving.get(inSystem).seenDate.add(date);
             saving.get(inSystem).seenTimes.add(1);
-            System.out.println("ID: "+saving.get(inSystem).seenMovies.size()+" Date: "+saving.get(inSystem).seenDate.size()+" Times: "+saving.get(inSystem).seenTimes.size());
         }
         dataBase.saveChange(saving);
     }
@@ -242,23 +240,26 @@ public class Account implements Serializable {
                 Integer times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
                 saving.get(inSystem).seenTimes.set(i, times);
-                System.out.println("ID: "+saving.get(inSystem).seenMovies.get(i)+" Date: "+saving.get(inSystem).seenDate.get(i)+" Times: "+saving.get(inSystem).seenTimes.get(i));
-
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
                 addSeen(movieID, inSystem, date);
             }
         }
-        if(seenEmpty = true)
-        {
+        if (seenEmpty = true) {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
         }
         boolean favEmpty = true;
-        for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
-            favEmpty = false;
-            if (movieID != dataBase.seeUsers().get(inSystem).getFavorite(i)) {
+            boolean inFav = false;
+            for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
+                favEmpty = false;
+                if (movieID == dataBase.seeUsers().get(inSystem).getFavorite(i)) {
+                    inFav = true;
+                }
+            }
+
+            if (inFav == false) {
                 System.out.println("""
                         =====================================================================================================
                                     
@@ -321,40 +322,40 @@ public class Account implements Serializable {
                 }
             }
 
-        }
-        if(favEmpty==true)
-        {
+
+        if (favEmpty == true) {
 
             System.out.println("""
-                        =====================================================================================================
-                                    
-                           _____                       __  __            _        _____        _        _                   
-                          / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                         | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                         | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                         | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                          \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                                __/ |                                                                       
-                                               |___/                                                                        
-                            
-                                                       Would you like to add this movie to favorites?
-                                                                            
-                                                             1.Yes
-                                                                            
-                                                             2.No
-                                                             
-                                                             
-                                                             
-                                                             
-                                                             
-                                    
-                        =====================================================================================================
-                        """);
+                    =====================================================================================================
+                                
+                       _____                       __  __            _        _____        _        _                   
+                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                            __/ |                                                                       
+                                           |___/                                                                        
+                        
+                                                   Would you like to add this movie to favorites?
+                                                                        
+                                                         1.Yes
+                                                                        
+                                                         2.No
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                
+                    =====================================================================================================
+                    """);
             int menuIn = Menu.checkInt();
             if (menuIn == 1) {
                 saving.get(inSystem).favMovies.add(movieID);
             }
         }
+
         dataBase.saveChange(saving);
         Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
     }
