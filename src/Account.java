@@ -184,12 +184,18 @@ public class Account implements Serializable {
 
     //Id is movie Id
     public static void addSeen(int ID, int inSystem, LocalDate date) {
+        boolean repeats = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
-            if (ID != dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
-                dataBase.seeUsers().get(inSystem).addSeen(ID);
-                dataBase.seeUsers().get(inSystem).addDate(date);
-                dataBase.seeUsers().get(inSystem).addTimes(1);
+            if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
+                repeats=true;
+            //    dataBase.seeUsers().get(inSystem).seenTimes.get(i)=i;
             }
+        }
+        if(repeats=false)
+        {
+            dataBase.seeUsers().get(inSystem).addSeen(ID);
+            dataBase.seeUsers().get(inSystem).addDate(date);
+            dataBase.seeUsers().get(inSystem).addTimes(1);
         }
     }
 
@@ -214,6 +220,7 @@ public class Account implements Serializable {
         FindMovie.SearchByID(movieID);
         boolean seen = false;
         boolean seenEmpty = true;
+        int index;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
             seenEmpty = false;
             if (movieID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
@@ -221,19 +228,19 @@ public class Account implements Serializable {
                 int times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
                 dataBase.seeUsers().get(inSystem).seenTimes.set(i, times);
-                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i));
+                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i)+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(i));
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
                 addSeen(movieID, inSystem, date);
-                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
+                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(dataBase.seeUsers().get(inSystem).seenTimes.size()));
             }
         }
         if(seenEmpty = true)
         {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
-            //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
+            System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(dataBase.seeUsers().get(inSystem).seenTimes.size()));
         }
         boolean favEmpty = true;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
