@@ -18,9 +18,9 @@ public class MovieDB implements Serializable {
             fileIn.close();
         } catch (IOException i) {
             i.printStackTrace();
-            System.out.println("ioexception");
+            Menu.print("ioexception");
         } catch (ClassNotFoundException c) {
-            System.out.println("Movie Class not Found");
+            Menu.print("Movie Class not Found");
             c.printStackTrace();
         }
         //System.out.println(datab);
@@ -39,7 +39,7 @@ public class MovieDB implements Serializable {
             fileOut.close();
             //System.out.println("The Object  was succesfully written to a file");
         } catch (Exception ex) {
-            System.out.println("There was a problem writing to file!");
+            Menu.print("There was a problem writing to file!");
             ex.printStackTrace();
         }
     }
@@ -48,7 +48,7 @@ public class MovieDB implements Serializable {
     public static void CreateMovie() {//
         Scanner userInput = new Scanner(System.in);
         //userInput.nextLine();
-        System.out.println("Do you want to insert a new Movie? y/n");
+        Menu.print("Do you want to insert a new Movie? y/n");
         String response = userInput.nextLine();
         boolean stop = false;
         while (!stop) {
@@ -56,7 +56,7 @@ public class MovieDB implements Serializable {
                 ArrayList<String> actors = new ArrayList<>();
                 ArrayList<String> roles = new ArrayList<>();
                 //Add Title
-                System.out.println("Insert Movie Title:");
+                Menu.print("Insert Movie Title:");
                 String title = userInput.nextLine();
                 //Add ID
 
@@ -68,18 +68,18 @@ public class MovieDB implements Serializable {
                     id = rand.nextInt(9999 + 10);
                 }
                 //Add Year
-                System.out.println("Insert Movie Release Year:");
+                Menu.print("Insert Movie Release Year:");
                 int year = Menu.checkInt();
                 //Insert Actor/Role
                 boolean stopRole = false;
                 while (!stopRole) {
-                    System.out.println("Insert an Actor/Actress:");
+                    Menu.print("Insert an Actor/Actress:");
                     String actor = userInput.nextLine();
                     actors.add(actor);
-                    System.out.println("Insert its/her role:");
+                    Menu.print("Insert its/her role:");
                     String role = userInput.nextLine();
                     roles.add(role);
-                    System.out.println("Do you want to add another one? y/n");
+                    Menu.print("Do you want to add another one? y/n");
                     if (userInput.nextLine().equals("n")) {stopRole = true;}
                 }
                 Movie mov1 = new Movie(id, title, actors, roles, year);
@@ -92,7 +92,7 @@ public class MovieDB implements Serializable {
                 }
                 stop = true;
             } else if (response.equals("n")) {
-                System.out.println("Back to the Menu");
+                Menu.print("Back to the Menu");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -100,7 +100,7 @@ public class MovieDB implements Serializable {
                 }
                 stop = true;
             } else {
-                System.out.println("please enter y or n");
+                Menu.print("please enter y or n");
                 stop = true;
             }
         }
@@ -112,22 +112,22 @@ public class MovieDB implements Serializable {
         boolean stop = false;
         while (!stop) {
             Movie mn;
-            System.out.println("Do you want to Update a Movie? y/n");
+            Menu.print("Do you want to Update a Movie? y/n");
             Scanner userInput = new Scanner(System.in);
             String answ = userInput.nextLine();
             if (answ.equals("y")) {
                 FindMovie.knowID();
-                System.out.println("Enter ID of the movie you want to Update:");
+                Menu.print("Enter ID of the movie you want to Update:");
                 int id = Menu.checkInt();
                 while (MovieDB.sameID(id)) {
-                    System.out.println("ID not found. Enter different ID");
+                    Menu.print("ID not found. Enter different ID");
                     FindMovie.SearchByID(id);
                     id = Menu.checkInt();
                 }
 
                 int index = MovieDB.movieDBindex(id);
                 mn = MovieDB.ReadDB().get(index);//Movie we want to update loaded
-                System.out.println("We're editing: " + mn.getTitle());
+                Menu.print("We're editing: " + mn.getTitle());
 
                 String ask = """
                                     What do you want to edit?
@@ -137,29 +137,31 @@ public class MovieDB implements Serializable {
                                     4.Add Actors/Roles
                                     5.ID
                         """;
+                Menu.printFind();
                 System.out.println(ask);
+                Menu.spaceEnd(2);
                 int answer = Menu.checkInt();
                 ArrayList<String> actors = new ArrayList<>();
                 ArrayList<String> roles = new ArrayList<>();
                 if (answer == 1) {//Edit Title
-                    System.out.println("Insert Movie Title:");
+                    Menu.print("Insert Movie Title:");
                     String title = userInput.nextLine();
                     mn.setTitle(title);
                 } else if (answer == 2) {//Edit Year
-                    System.out.println("Insert Movie Release Year:");
+                    Menu.print("Insert Movie Release Year:");
                     int year = Menu.checkInt();
                     mn.setDate(year);
                 } else if (answer == 3) {//Edit Actors/Roles
                     //Insert Actor/Role
                     boolean stopRole = false;
                     while (!stopRole) {
-                        System.out.println("Insert an Actor/Actress:");
+                        Menu.print("Insert an Actor/Actress:");
                         String actor = userInput.nextLine();
                         actors.add(actor);
-                        System.out.println("Insert its/her role:");
+                        Menu.print("Insert its/her role:");
                         String role = userInput.nextLine();
                         roles.add(role);
-                        System.out.println("Do you want to add another one? y/n");
+                        Menu.print("Do you want to add another one? y/n");
                         String ans = userInput.nextLine();
                         if (ans.equals("n")) {stopRole = true;}
                     }
@@ -169,13 +171,13 @@ public class MovieDB implements Serializable {
                     //Insert Actor/Role
                     boolean stopAdd = false;
                     while (!stopAdd) {
-                        System.out.println("Insert an Actor/Actress:");
+                        Menu.print("Insert an Actor/Actress:");
                         String actor = userInput.nextLine();
                         mn.getActors().add(actor);
-                        System.out.println("Insert its/her role:");
+                        Menu.print("Insert its/her role:");
                         String role = userInput.nextLine();
                         mn.getRoles().add(role);
-                        System.out.println("Do you want to add another one? y/n");
+                        Menu.print("Do you want to add another one? y/n");
                         String res = userInput.nextLine();
                         if (res.equals("n")) {
                             Menu.flush();
@@ -183,15 +185,15 @@ public class MovieDB implements Serializable {
                         }
                     }
                 } else if (answer == 5) {//Edit ID
-                    System.out.println("Insert Movie ID:");
+                    Menu.print("Insert Movie ID:");
                     int idt = Menu.checkInt();
                     while (MovieDB.sameID(idt)) {
-                        System.out.println("ID not found. Enter different ID");
+                        Menu.print("ID not found. Enter different ID");
                         idt = Menu.checkInt();
                     }
                     mn.setID(idt);
                 } else {
-                    System.out.println("Insert Valid Number:");
+                    Menu.print("Insert Valid Number:");
                 }
 
                 ArrayList<Movie> movDB;
@@ -199,7 +201,7 @@ public class MovieDB implements Serializable {
                 movDB.set(index, mn);//Sets the new movie created to
                 MovieDB.WriteDBToFile(movDB);//Create an arraylist Movies
                 Menu.flush();
-                System.out.println(mn.getTitle() + " succesfuly edited");
+                Menu.print(mn.getTitle() + " succesfuly edited");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -208,10 +210,10 @@ public class MovieDB implements Serializable {
 
                 stop = true;
             } else if (answ.equals("n")) {
-                System.out.println("Back to the Menu");
+                Menu.print("Back to the Menu");
                 stop = true;
             } else {
-                System.out.println("please enter y or n");
+                Menu.print("please enter y or n");
             }
 
         }
@@ -223,10 +225,10 @@ public class MovieDB implements Serializable {
         movDB = MovieDB.ReadDB();
         Scanner userInput = new Scanner(System.in);
         FindMovie.knowID();
-        System.out.println("Insert the ID of the Movie");
+        Menu.print("Insert the ID of the Movie");
         int id = Menu.checkInt();
 
-        System.out.println("Are you sure you want to remove " + movDB.get(movieDBindex(id)).getTitle() + "? y/n");
+        Menu.print("Are you sure you want to remove " + movDB.get(movieDBindex(id)).getTitle() + "? y/n");
         String answer = userInput.nextLine();
         Menu.flush();
         boolean stop = false;
@@ -235,12 +237,12 @@ public class MovieDB implements Serializable {
                 String removed = movDB.get(movieDBindex(id)).getTitle();
                 movDB.remove(movieDBindex(id));
                 MovieDB.WriteDBToFile(movDB);
-                System.out.println(removed + " has been removed.");
+                Menu.print(removed + " has been removed.");
                 stop = true;
             } else if (answer.equals("n")) {
-                System.out.println(movDB.get(movieDBindex(id)).getTitle() + " is still in the DB.");
+                Menu.print(movDB.get(movieDBindex(id)).getTitle() + " is still in the DB.");
                 stop = true;
-            } else {System.out.println("try again");}
+            } else {Menu.print("try again");}
         }
 
     }
@@ -250,7 +252,7 @@ public class MovieDB implements Serializable {
         ArrayList<Movie> movDB;
         movDB = MovieDB.ReadDB();
         movDB.add(movie);
-        System.out.println(movie.getTitle() + " added to DB");
+        Menu.print(movie.getTitle() + " added to DB");
         MovieDB.WriteDBToFile(movDB);
     }
 
@@ -280,50 +282,52 @@ public class MovieDB implements Serializable {
         boolean stopit = false;
         while (!stopit) {
             Movie mn;
-            System.out.println("Do you want to Copy a Movie? y/n");
+            Menu.print("Do you want to Copy a Movie? y/n");
             Scanner userInput = new Scanner(System.in);
             String answ = userInput.nextLine();
             if (answ.equals("y")) {
                 FindMovie.knowID();
-                System.out.println("Enter ID:");
+                Menu.print("Enter ID:");
                 int id = Menu.checkInt();
                 while (MovieDB.sameID(id)) {
-                    System.out.println("ID not found. Enter different ID");
+                    Menu.print("ID not found. Enter different ID");
                     id = Menu.checkInt();
                 }
 
                 int index = MovieDB.movieDBindex(id);
 
                 mn = MovieDB.ReadDB().get(index);//Movie we want to update loaded
-                System.out.println("We're copying: " + mn.getTitle());
+                Menu.print("We're copying: " + mn.getTitle());
                 String ask = """
                                     Do you want to edit something?
                                     1.Title & Year
                                     2.Actors/Roles
                                     3.Add Actors/Roles
                         """;
+                Menu.printFind();
                 System.out.println(ask);
+                Menu.spaceEnd(1);
                 int answer = Menu.checkInt();
                 ArrayList<String> actors = new ArrayList<>();
                 ArrayList<String> roles = new ArrayList<>();
                 if (answer == 1) {//Edit Title & Year
-                    System.out.println("Insert Movie Title:");
+                    Menu.print("Insert Movie Title:");
                     String title = userInput.nextLine();
                     mn.setTitle(title);
-                    System.out.println("Insert Movie Release Year:");
+                    Menu.print("Insert Movie Release Year:");
                     int year = Menu.checkInt();
                     mn.setDate(year);
                 } else if (answer == 2) {//Edit Actors/Roles
                     //Insert Actor/Role
                     boolean stopRole = false;
                     while (!stopRole) {
-                        System.out.println("Insert an Actor/Actress:");
+                        Menu.print("Insert an Actor/Actress:");
                         String actor = userInput.nextLine();
                         actors.add(actor);
-                        System.out.println("Insert its/her role:");
+                        Menu.print("Insert its/her role:");
                         String role = userInput.nextLine();
                         roles.add(role);
-                        System.out.println("Do you want to add another one? y/n");
+                        Menu.print("Do you want to add another one? y/n");
                         String ans = userInput.nextLine();
                         if (ans.equals("n")) {stopRole = true;}
                     }
@@ -334,13 +338,13 @@ public class MovieDB implements Serializable {
                     boolean stopAdd = false;
                     while (!stopAdd) {
                         Menu.flush();
-                        System.out.println("Insert an Actor/Actress:");
+                        Menu.print("Insert an Actor/Actress:");
                         String actor = userInput.nextLine();
                         mn.getActors().add(actor);
-                        System.out.println("Insert its/her role:");
+                        Menu.print("Insert its/her role:");
                         String role = userInput.nextLine();
                         mn.getRoles().add(role);
-                        System.out.println("Do you want to add another one? y/n");
+                        Menu.print("Do you want to add another one? y/n");
                         String res = userInput.nextLine();
                         if (res.equals("n")) {
                             Menu.flush();
@@ -348,7 +352,7 @@ public class MovieDB implements Serializable {
                         }
                     }
                 } else {
-                    System.out.println("Insert Valid Number:");
+                    Menu.print("Insert Valid Number:");
 
                 }
 
@@ -362,7 +366,7 @@ public class MovieDB implements Serializable {
                 mn.setID(idt);
                 MovieDB.addMovietoDB(mn);
                 Menu.flush();
-                System.out.println(mn.getID() + " " + mn.getTitle() + " succesfuly copied");
+                Menu.print(mn.getID() + " " + mn.getTitle() + " succesfuly copied");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -372,7 +376,7 @@ public class MovieDB implements Serializable {
                 stopit = true;
 
             } else if (answ.equals("n")) {
-                System.out.println("Back to the Menu");
+                Menu.print("Back to the Menu");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -380,7 +384,7 @@ public class MovieDB implements Serializable {
                 }
                 stopit = true;
             } else {
-                System.out.println("please enter y or n");
+                Menu.print("please enter y or n");
             }
 
         }

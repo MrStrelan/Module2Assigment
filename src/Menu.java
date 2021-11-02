@@ -20,6 +20,8 @@ public class Menu {
                       \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                             __/ |                                                                       \s
                                            |___/                                                                        \s
+                                                   
+                                                   
                                                    What would you like to do today?
                                                                     
                                                              1.Login
@@ -30,10 +32,12 @@ public class Menu {
                                 
                                                                          
                                 
-                                                                         
-                                
-                                
-                                
+                                 
+                                 
+                                 
+                                 
+                                                                                                       
+                                                              
                     ======================================================================================================
                     """;
             Menu.flush();
@@ -65,7 +69,9 @@ public class Menu {
             } else if (input == 3) {
                 creatingAccount = true;
             } else if (input == 4) {
-                Menu.menuAdmin();
+                Menu.print("Insert Numeric Password for Admin Area");
+                if (checkInt() == 123456){Menu.menuAdmin();}
+                else {Menu.print("Wrong admin password, try again");}
             } else {
                 Menu.flush();
                 Menu.print("This option is not on menu, try again");
@@ -90,9 +96,11 @@ public class Menu {
                       \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                             __/ |                                                                      \s
                                            |___/                                                                       \s
+                                                          
+                                                          
                                                                  \s
                                                     - Welcome to the Admin Section -
-                                                                                                                                                              \s
+                                                                                                                                                              
                                                         1.Search         2.Create  \s
                                                                      \s
                                                         3.Update         4.Delete
@@ -150,6 +158,8 @@ public class Menu {
                                             __/ |                                                                       
                                            |___/                                                                        
                         
+                        
+                        
                                                    What would you like to do today?
                                                                         
                                                          1.Search Movie
@@ -159,6 +169,8 @@ public class Menu {
                                                          3.See Statistics
                                 
                                                          4.Log out
+                                
+                                
                                 
                                 
                                 
@@ -218,6 +230,8 @@ public class Menu {
                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                         __/ |                                                                       
                                        |___/                                                                        
+                                              
+                                              
                                               """;
         String menuBottom = """
                                                                  
@@ -229,6 +243,8 @@ public class Menu {
                                                                      
                             
                                                                      
+                            
+                            
                             
                             
                             
@@ -254,6 +270,8 @@ public class Menu {
                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                         __/ |                                                                       
                                        |___/                                                                        
+                                              
+                                              
                                               """;
         Menu.flush();
         System.out.println(menuTop);
@@ -319,10 +337,12 @@ public class Menu {
                 Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle() + " added to Seen");
                 Menu.flush();
                 run = false;
+                break;
 
             }
             if (resp == 4) {//Back to menu
                 run = false;
+
             } else {
                 Menu.print("Insert proper answer");
             }
@@ -337,6 +357,11 @@ public class Menu {
                                 
                 """;
         String endline = """
+                
+                
+                
+                
+                
                 ======================================================================================================
                 """;
         if (nr >= 3) {System.out.println(blank);}
