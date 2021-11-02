@@ -7,8 +7,9 @@ public class FindMovie {
     //Menu interface that lets the user Find a movie in the DB
     public static boolean Find() {
         Scanner userInput = new Scanner(System.in);
+        Menu.flush();
         String ask = """
-                =======================================================================================================
+                ======================================================================================================
                                           \s
                    _____                       __  __            _        _____        _        _                  \s
                   / ____|                     |  \\/  |          (_)      |  __ \\      | |_     | |                 \s
@@ -19,20 +20,20 @@ public class FindMovie {
                                         __/ |                                                                      \s
                                        |___/                                                                       \s
                                                              \s
-                                                     How do you want to find the Movie?
-                                                                                                                                                          \s
-                                                         1.Title         2.Year  \s
+                                               How do you want to find the Movie?
+                                               
+                                                    1.Title         2.Year  \s
                                                                  \s
-                                                         3.Actor         4.ID
+                                                    3.Actor         4.ID
                                                                  \s
-                                                                 5.Roles        \s
+                                                            5.Roles        \s
                          \s
-                                                                 6.Back
+                                                            6.Back
                                                                  \s
-                                                                                                                                                                                                                                                                                                                                                                                                                                              \s
-                                                     \s
+                                                                 
                                  \s
-                =======================================================================================================     
+                ======================================================================================================
+                   
                 """;
         System.out.println(ask);
         int answer = Menu.checkInt();
