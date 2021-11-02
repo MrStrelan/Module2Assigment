@@ -177,14 +177,12 @@ public class Menu {
                 Menu.flush();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
-                    System.out.println("empty 2");
                 }
             } else if (inputUsMenu == 3) {
                 Menu.flush();
-                for (int i = 0; i <= currentUser.seenMovieList(userID).size(); i++) {
+                for (int i = 0; i < currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
-                    System.out.println("emty 3");
                 }
             } else if (inputUsMenu == 4) {
                 Menu.flush();

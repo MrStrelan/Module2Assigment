@@ -51,7 +51,7 @@ public class Account implements Serializable {
         favMovies.add(num);
     }
 
-    public void addSeen(int num) {
+    public void addSeenMovie(int num) {
         seenMovies.add(num);
     }
 
@@ -97,11 +97,13 @@ public class Account implements Serializable {
     }
 
     public static ArrayList<Integer> seenMovieTimes(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getTimes();
+        ArrayList<Integer> saving = dataBase.seeUsers().get(inSystem).seenTimes;
+        return saving;
     }
 
     public static ArrayList<LocalDate> seenMoviedate(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getDates();
+        ArrayList<LocalDate> saving = dataBase.seeUsers().get(inSystem).seenDate;
+        return saving;
     }
 
     public static ArrayList<Integer> seeFavorite(int inSystem) {
@@ -213,7 +215,7 @@ public class Account implements Serializable {
         }
         if(repeats=false)
         {
-            saving.get(inSystem).addSeen(ID);
+            saving.get(inSystem).addSeenMovie(ID);
             saving.get(inSystem).addDate(date);
             saving.get(inSystem).addTimes(1);
         }
