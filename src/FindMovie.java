@@ -19,6 +19,8 @@ public class FindMovie {
                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                         __/ |                                                                      \s
                                        |___/                                                                       \s
+                                                             
+                                                             
                                                              \s
                                                How do you want to find the Movie?
                                                
@@ -30,6 +32,8 @@ public class FindMovie {
                          \s
                                                             6.Back
                                                                  \s
+                                                                 
+                                                                 
                                                                  
                                  \s
                 ======================================================================================================
@@ -213,7 +217,7 @@ public class FindMovie {
     public static void SearchByID(int i) {
         Scanner userInput = new Scanner(System.in);
         Movie mn = new Movie();
-        Menu.printFind();
+
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
@@ -221,7 +225,6 @@ public class FindMovie {
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
-        userInput.nextLine();
     }
 
 

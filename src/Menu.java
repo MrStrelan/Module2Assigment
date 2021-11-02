@@ -65,8 +65,9 @@ public class Menu {
             } else if (input == 3) {
                 creatingAccount = true;
             } else if (input == 4) {
-                Menu.menuAdmin();
-                creatingAccount = true;
+                Menu.print("Insert Numeric Password for Admin Area");
+                if (checkInt() == 123456){Menu.menuAdmin();}
+                else {Menu.print("Wrong admin password, try again");}
             } else {
                 Menu.flush();
                 Menu.print("This option is not on menu, try again");
@@ -136,6 +137,7 @@ public class Menu {
 
     //Prints the User Menu
     public static void menuUser(int userID) {
+        Scanner userInput = new Scanner(System.in);
         Account currentUser = new Account();
         boolean useMenu = false;
         while (useMenu == false) {
@@ -177,18 +179,24 @@ public class Menu {
                 if (foundMovies == true) {
                     Menu.AddToFavSeen(userID);
                 }
-            } else if (inputUsMenu == 2) {
+            } else if (inputUsMenu == 2) {// See Favourites
                 Menu.flush();
-
+                Menu.printFind();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                 }
+                Menu.spaceEnd(currentUser.seeFavorite(userID).size());
+                userInput.nextLine();
             } else if (inputUsMenu == 3) {
                 Menu.flush();
+                Menu.printFind();
                 for (int i = 0; i <currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
+
                 }
+                Menu.spaceEnd(currentUser.seenMovieList(userID).size());
+                userInput.nextLine();
             } else if (inputUsMenu == 4) {
                 Menu.flush();
                 useMenu = true;
