@@ -92,107 +92,6 @@ public class Account implements Serializable {
     }
 
     //Complex functions
-    public static Account logIn() {
-        Account storingValuables = new Account();
-        ArrayList<Account> users = dataBase.seeUsers();
-        /*----------------------------------------------------------------------------------------
-        for (int i = 0; i < users.size(); i++) {
-            Menu.print(users.get(i).getLogin());
-        }
-        System.out.println("" +
-                "" +
-                "");*/
-        Menu.print("Enter username");
-        Scanner usernameScan = new Scanner(System.in);
-        String usernameIn = usernameScan.nextLine();
-        boolean repeats = false;
-        int index;
-        for (int i = 0; i < users.size(); i++) {
-            if (usernameIn.equals(users.get(i).getLogin())) {
-                index = i;
-                repeats = true;
-                Menu.print("Enter password");
-                Scanner passwordScan = new Scanner(System.in);
-                String passwordIn = passwordScan.nextLine();
-                if (passwordIn.equals(users.get(index).getPassword())) {
-                    storingValuables.setMenuState(true);
-                    storingValuables.setUserID(index);
-                    return storingValuables;
-                } else {
-                    Menu.print("Password is wrong");
-                    storingValuables.setMenuState(false);
-                    return storingValuables;
-                }
-            }
-            if (repeats = false) {
-                Menu.print("This username doesn't exist - Try again or create new account");
-                storingValuables.setMenuState(false);
-                return storingValuables;
-            }
-        }
-        Menu.print("No users are created");
-        storingValuables.setMenuState(false);
-        return storingValuables;
-    }
-
-    public static Account creatingUser() {
-        Account storingValuables = new Account();
-        ArrayList<Account> users = dataBase.seeUsers();
-        /*---------------------------------------------------------------------------------------------------------------
-        for (int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i).getLogin());
-        }
-        Menu.print("" +
-                "" +
-                "");*/
-        Account user = new Account();
-        boolean creatingUsername = true;
-        while (creatingUsername == true) {
-            Menu.print("Create username");
-            Scanner usernameScan = new Scanner(System.in);
-            String usernameIn = usernameScan.nextLine();
-            boolean repeats = false;
-            for (int i = 0; i < users.size(); i++) {
-                if (usernameIn.equals(users.get(i).getLogin())) {
-                    repeats = true;
-                    Menu.print("This username is already taken, try another one");
-                }
-            }
-            if (repeats == false) {
-                user.setLogin(usernameIn);
-                Menu.print("Username created");
-                creatingUsername = false;
-            }
-        }
-        Menu.print("Now please choose password");
-        Scanner passwordScan = new Scanner(System.in);
-        String password = passwordScan.nextLine();
-        user.setPassword(password);
-        dataBase.addUser(user);
-        storingValuables.setUserID(users.size());
-        storingValuables.setMenuState(true);
-        return storingValuables;
-    }
-
-    public static void addFavorite(int ID, int inSystem) {
-        dataBase.seeUsers().get(inSystem).addFavorite(ID);
-    }
-
-    public static void deleteFavorite(int ID, int inSystem) {
-        dataBase.seeUsers().get(inSystem).getFavMovies().remove(ID);
-    }
-
-    //Id is movie Id
-    public static void addSeen(int ID, int inSystem, LocalDate date) {
-        for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
-            if (ID != dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
-                dataBase.seeUsers().get(inSystem).addSeen(ID);
-                dataBase.seeUsers().get(inSystem).addDate(date);
-                dataBase.seeUsers().get(inSystem).addTimes(1);
-            }
-        }
-    }
-
     public static ArrayList<Integer> seenMovieList(int inSystem) {
         return dataBase.seeUsers().get(inSystem).getSeenMovies();
     }
@@ -209,31 +108,142 @@ public class Account implements Serializable {
         return dataBase.seeUsers().get(inSystem).getFavMovies();
     }
 
+    public static Account logIn() {
+        Account storingValuables = new Account();
+        ArrayList<Account> users = dataBase.seeUsers();
+        /*----------------------------------------------------------------------------------------
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i).getLogin());
+        }
+        System.out.println("" +
+                "" +
+                "");*/
+        System.out.println("Enter username");
+        Scanner usernameScan = new Scanner(System.in);
+        String usernameIn = usernameScan.nextLine();
+        boolean repeats = false;
+        int index;
+        for (int i = 0; i < users.size(); i++) {
+            if (usernameIn.equals(users.get(i).getLogin())) {
+                index = i;
+                repeats = true;
+                System.out.println("Enter password");
+                Scanner passwordScan = new Scanner(System.in);
+                String passwordIn = passwordScan.nextLine();
+                if (passwordIn.equals(users.get(index).getPassword())) {
+                    storingValuables.setMenuState(true);
+                    storingValuables.setUserID(index);
+                    return storingValuables;
+                } else {
+                    System.out.println("Password is wrong");
+                    storingValuables.setMenuState(false);
+                    return storingValuables;
+                }
+            }
+            if (repeats = false) {
+                System.out.println("This username doesn't exist\nTry again or create new account");
+                storingValuables.setMenuState(false);
+                return storingValuables;
+            }
+        }
+        System.out.println("No users are created");
+        storingValuables.setMenuState(false);
+        return storingValuables;
+    }
+
+    public static Account creatingUser() {
+        Account storingValuables = new Account();
+        ArrayList<Account> users = dataBase.seeUsers();
+        /*---------------------------------------------------------------------------------------------------------------
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i).getLogin());
+        }
+        System.out.println("" +
+                "" +
+                "");*/
+        Account user = new Account();
+        boolean creatingUsername = true;
+        while (creatingUsername == true) {
+            System.out.println("Create username");
+            Scanner usernameScan = new Scanner(System.in);
+            String usernameIn = usernameScan.nextLine();
+            boolean repeats = false;
+            for (int i = 0; i < users.size(); i++) {
+                if (usernameIn.equals(users.get(i).getLogin())) {
+                    repeats = true;
+                    System.out.println("This username is already taken, try another one");
+                }
+            }
+            if (repeats == false) {
+                user.setLogin(usernameIn);
+                System.out.println("Username created");
+                creatingUsername = false;
+            }
+        }
+        System.out.println("Now please choose password");
+        Scanner passwordScan = new Scanner(System.in);
+        String password = passwordScan.nextLine();
+        user.setPassword(password);
+        dataBase.addUser(user);
+        storingValuables.setUserID(users.size());
+        storingValuables.setMenuState(true);
+        return storingValuables;
+    }
+
+    public static void addFavorite(int ID, int inSystem) {
+        ArrayList<Account> saving = dataBase.seeUsers();
+        saving.get(inSystem).addFavorite(ID);
+        dataBase.saveChange(saving);
+    }
+
+    public static void deleteFavorite(int ID, int inSystem) {
+        ArrayList<Account> saving = dataBase.seeUsers();
+        saving.get(inSystem).getFavMovies().remove(ID);
+        dataBase.saveChange(saving);
+    }
+    //ID is movie Id
+    public static void addSeen(int ID, int inSystem, LocalDate date) {
+        ArrayList<Account> saving = dataBase.seeUsers();
+        boolean repeats = false;
+        for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
+            if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
+                repeats=true;
+                saving.get(inSystem).seenTimes.set(i,dataBase.seeUsers().get(inSystem).seenTimes.get(i));
+            }
+        }
+        if(repeats=false)
+        {
+            saving.get(inSystem).addSeen(ID);
+            saving.get(inSystem).addDate(date);
+            saving.get(inSystem).addTimes(1);
+        }
+        dataBase.saveChange(saving);
+    }
+
     public static void watchMovie(int movieID, int inSystem) {
+        ArrayList<Account> saving = dataBase.seeUsers();
         Menu.flush();
         FindMovie.SearchByID(movieID);
         boolean seen = false;
         boolean seenEmpty = true;
+        int index;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
             seenEmpty = false;
             if (movieID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
                 seen = true;
                 int times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
-                dataBase.seeUsers().get(inSystem).seenTimes.set(i, times);
-                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i));
+                saving.get(inSystem).seenTimes.set(i, times);
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
                 addSeen(movieID, inSystem, date);
-                //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
             }
         }
         if(seenEmpty = true)
         {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
-            //System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date);
         }
         boolean favEmpty = true;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
@@ -267,7 +277,7 @@ public class Account implements Serializable {
                         """);
                 int menuIn = Menu.checkInt();
                 if (menuIn == 1) {
-                    dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
+                    saving.get(inSystem).favMovies.add(movieID);
                 }
             } else {
                 System.out.println("");
@@ -333,10 +343,11 @@ public class Account implements Serializable {
                         """);
             int menuIn = Menu.checkInt();
             if (menuIn == 1) {
-                dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
+                saving.get(inSystem).favMovies.add(movieID);
             }
         }
-        Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
+        dataBase.saveChange(saving);
+        System.out.println(dataBase.seeUsers().get(inSystem).favMovies);
     }
 }
 
