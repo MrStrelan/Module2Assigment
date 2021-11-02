@@ -261,7 +261,7 @@ public class Account implements Serializable {
                                                 __/ |                                                                       
                                                |___/                                                                        
                             
-                                                       Would u like to add this movie to favorites?
+                                                       Would you like to add this movie to favorites?
                                                                             
                                                              1.Yes
                                                                             
@@ -292,7 +292,7 @@ public class Account implements Serializable {
                                                 __/ |                                                                       
                                                |___/                                                                        
                             
-                                                       Would u like to keep this movie in favorites?
+                                                       Would you like to keep this movie in favorites?
                                                                             
                                                              1.Yes
                                                                             
@@ -327,7 +327,7 @@ public class Account implements Serializable {
                                                 __/ |                                                                       
                                                |___/                                                                        
                             
-                                                       Would u like to add this movie to favorites?
+                                                       Would you like to add this movie to favorites?
                                                                             
                                                              1.Yes
                                                                             
