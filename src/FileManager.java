@@ -29,7 +29,7 @@ public class FileManager {
             addUsers.close();
             usernamesIN.close();
         } catch (Exception e) {
-            System.out.println("Failed file writing");
+            System.out.println("Failed file saving updates");
         }
     }
 
