@@ -217,7 +217,7 @@ public class FindMovie {
     public static void SearchByID(int i) {
         Scanner userInput = new Scanner(System.in);
         Movie mn = new Movie();
-        Menu.printFind();
+
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
@@ -225,7 +225,6 @@ public class FindMovie {
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
-        userInput.nextLine();
     }
 
 
