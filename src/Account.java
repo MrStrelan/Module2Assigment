@@ -92,6 +92,22 @@ public class Account implements Serializable {
     }
 
     //Complex functions
+    public static ArrayList<Integer> seenMovieList(int inSystem) {
+        return dataBase.seeUsers().get(inSystem).getSeenMovies();
+    }
+
+    public static ArrayList<Integer> seenMovieTimes(int inSystem) {
+        return dataBase.seeUsers().get(inSystem).getTimes();
+    }
+
+    public static ArrayList<LocalDate> seenMoviedate(int inSystem) {
+        return dataBase.seeUsers().get(inSystem).getDates();
+    }
+
+    public static ArrayList<Integer> seeFavorite(int inSystem) {
+        return dataBase.seeUsers().get(inSystem).getFavMovies();
+    }
+
     public static Account logIn() {
         Account storingValuables = new Account();
         ArrayList<Account> users = dataBase.seeUsers();
@@ -175,47 +191,37 @@ public class Account implements Serializable {
     }
 
     public static void addFavorite(int ID, int inSystem) {
-        dataBase.seeUsers().get(inSystem).addFavorite(ID);
+        ArrayList<Account> saving = dataBase.seeUsers();
+        saving.get(inSystem).addFavorite(ID);
+        dataBase.saveChange(saving);
     }
 
     public static void deleteFavorite(int ID, int inSystem) {
-        dataBase.seeUsers().get(inSystem).getFavMovies().remove(ID);
+        ArrayList<Account> saving = dataBase.seeUsers();
+        saving.get(inSystem).getFavMovies().remove(ID);
+        dataBase.saveChange(saving);
     }
-
-    //Id is movie Id
+    //ID is movie Id
     public static void addSeen(int ID, int inSystem, LocalDate date) {
+        ArrayList<Account> saving = dataBase.seeUsers();
         boolean repeats = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
             if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
                 repeats=true;
-            //    dataBase.seeUsers().get(inSystem).seenTimes.get(i)=i;
+                saving.get(inSystem).seenTimes.set(i,dataBase.seeUsers().get(inSystem).seenTimes.get(i));
             }
         }
         if(repeats=false)
         {
-            dataBase.seeUsers().get(inSystem).addSeen(ID);
-            dataBase.seeUsers().get(inSystem).addDate(date);
-            dataBase.seeUsers().get(inSystem).addTimes(1);
+            saving.get(inSystem).addSeen(ID);
+            saving.get(inSystem).addDate(date);
+            saving.get(inSystem).addTimes(1);
         }
-    }
-
-    public static ArrayList<Integer> seenMovieList(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getSeenMovies();
-    }
-
-    public static ArrayList<Integer> seenMovieTimes(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getTimes();
-    }
-
-    public static ArrayList<LocalDate> seenMoviedate(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getDates();
-    }
-
-    public static ArrayList<Integer> seeFavorite(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getFavMovies();
+        dataBase.saveChange(saving);
     }
 
     public static void watchMovie(int movieID, int inSystem) {
+        ArrayList<Account> saving = dataBase.seeUsers();
         Menu.flush();
         FindMovie.SearchByID(movieID);
         boolean seen = false;
@@ -227,20 +233,17 @@ public class Account implements Serializable {
                 seen = true;
                 int times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
-                dataBase.seeUsers().get(inSystem).seenTimes.set(i, times);
-                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + dataBase.seeUsers().get(inSystem).seenDate.get(i)+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(i));
+                saving.get(inSystem).seenTimes.set(i, times);
             }
             if (seen == false) {
                 LocalDate date = LocalDate.now();
                 addSeen(movieID, inSystem, date);
-                System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(dataBase.seeUsers().get(inSystem).seenTimes.size()));
             }
         }
         if(seenEmpty = true)
         {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
-            System.out.println("MovieID: " + movieID + "  UserID: " + inSystem + " Date: " + date+ " Times seen: "+ dataBase.seeUsers().get(inSystem).seenTimes.get(dataBase.seeUsers().get(inSystem).seenTimes.size()));
         }
         boolean favEmpty = true;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
@@ -274,7 +277,7 @@ public class Account implements Serializable {
                         """);
                 int menuIn = Menu.checkInt();
                 if (menuIn == 1) {
-                    dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
+                    saving.get(inSystem).favMovies.add(movieID);
                 }
             } else {
                 System.out.println("");
@@ -340,9 +343,10 @@ public class Account implements Serializable {
                         """);
             int menuIn = Menu.checkInt();
             if (menuIn == 1) {
-                dataBase.seeUsers().get(inSystem).favMovies.add(movieID);
+                saving.get(inSystem).favMovies.add(movieID);
             }
         }
+        dataBase.saveChange(saving);
         System.out.println(dataBase.seeUsers().get(inSystem).favMovies);
     }
 }

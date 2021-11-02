@@ -20,6 +20,19 @@ public class FileManager {
         }
     }
 
+    public void saveChange(ArrayList<Account> users) {
+
+        try {
+            FileOutputStream addUsers = new FileOutputStream(usernames, false);
+            ObjectOutputStream usernamesIN = new ObjectOutputStream(addUsers);
+            usernamesIN.writeObject(users);
+            addUsers.close();
+            usernamesIN.close();
+        } catch (Exception e) {
+            System.out.println("Failed file writing");
+        }
+    }
+
     public ArrayList<Account> seeUsers()
     {
         ArrayList<Account> users = new ArrayList<>();
