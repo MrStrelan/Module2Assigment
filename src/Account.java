@@ -110,7 +110,7 @@ public class Account implements Serializable {
 
 
     public static ArrayList<Integer> seenMovieList(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).getSeenMovies();
+        return dataBase.seeUsers().get(inSystem).seenMovies;
     }
 
     public static ArrayList<Integer> seenMovieTimes(int inSystem) {
@@ -268,7 +268,6 @@ public class Account implements Serializable {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
         }
-        dataBase.saveChange(saving);
         boolean favEmpty = true;
         boolean inFav = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
@@ -277,6 +276,7 @@ public class Account implements Serializable {
                 inFav = true;
             }
         }
+        dataBase.saveChange(saving);
 
         if (inFav == false) {
             System.out.println("""
