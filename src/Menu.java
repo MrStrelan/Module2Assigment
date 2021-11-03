@@ -191,7 +191,7 @@ public class Menu {
                 Menu.flush();
                 Menu.printFind();
                 for (int i = 0; i <currentUser.seenMovieList(userID).size(); i++) {
-                    FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
+                    FindMovie.SearchByID(currentUser.seenMovieList(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
 
                 }
