@@ -306,7 +306,9 @@ public class Account implements Serializable {
                     """);
             int menuIn = Menu.checkInt();
             if (menuIn == 1) {
+                saving = dataBase.seeUsers();
                 saving.get(inSystem).favMovies.add(movieID);
+                dataBase.saveChange(saving);
             }
         } else {
 
@@ -342,7 +344,7 @@ public class Account implements Serializable {
         }
 
 
-        if (favEmpty == true) {
+        /*if (favEmpty == true) {
 
             System.out.println("""
                     =====================================================================================================
@@ -371,10 +373,14 @@ public class Account implements Serializable {
                     """);
             int menuIn = Menu.checkInt();
             if (menuIn == 1) {
+                saving = dataBase.seeUsers();
                 saving.get(inSystem).favMovies.add(movieID);
+                dataBase.saveChange(saving);
+
             }
-        }
+        }*/
         Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
+
         //Account.seeStatistics(movieID, inSystem);
     }
 }
