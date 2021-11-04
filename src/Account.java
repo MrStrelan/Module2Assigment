@@ -110,7 +110,8 @@ public class Account implements Serializable {
 
 
     public static ArrayList<Integer> seenMovieList(int inSystem) {
-        return dataBase.seeUsers().get(inSystem).seenMovies;
+        ArrayList<Integer> saving = dataBase.seeUsers().get(inSystem).seenMovies;
+        return saving;
     }
 
     public static ArrayList<Integer> seenMovieTimes(int inSystem) {
@@ -229,9 +230,9 @@ public class Account implements Serializable {
         ArrayList<Account> saving = dataBase.seeUsers();
         boolean repeats = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).seenMovies.size(); i++) {
-            if (ID == dataBase.seeUsers().get(inSystem).getSeenMovie(i)) {
+            if (ID == dataBase.seeUsers().get(inSystem).seenMovies.get(i)) {
                 repeats = true;
-                saving.get(inSystem).seenTimes.set(i, dataBase.seeUsers().get(inSystem).seenTimes.get(i));
+                saving.get(inSystem).seenTimes.set(i, dataBase.seeUsers().get(inSystem).seenTimes.get(i)+1);
             }
         }
         if (repeats == false) {
@@ -258,25 +259,19 @@ public class Account implements Serializable {
                 times++;
                 //Error
                 saving.get(inSystem).seenTimes.set(i, times);
-            }
-            if (seen == false) {
-                LocalDate date = LocalDate.now();
-                addSeen(movieID, inSystem, date);
+                dataBase.saveChange(saving);
             }
         }
-        if (seenEmpty = true) {
+        if (seen == false) {
             LocalDate date = LocalDate.now();
             addSeen(movieID, inSystem, date);
         }
-        boolean favEmpty = true;
         boolean inFav = false;
         for (int i = 0; i < dataBase.seeUsers().get(inSystem).favMovies.size(); i++) {
-            favEmpty = false;
             if (movieID == dataBase.seeUsers().get(inSystem).getFavorite(i)) {
                 inFav = true;
             }
         }
-        dataBase.saveChange(saving);
 
         if (inFav == false) {
             System.out.println("""
@@ -342,46 +337,7 @@ public class Account implements Serializable {
                 deleteFavorite(movieID, inSystem);
             }
         }
-
-
-        /*if (favEmpty == true) {
-
-            System.out.println("""
-                    =====================================================================================================
-                                
-                       _____                       __  __            _        _____        _        _                   
-                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                            __/ |                                                                       
-                                           |___/                                                                        
-                        
-                                                   Would you like to add this movie to favorites?
-                                                                        
-                                                         1.Yes
-                                                                        
-                                                         2.No
-                                                         
-                                                         
-                                                         
-                                                         
-                                                         
-                                
-                    =====================================================================================================
-                    """);
-            int menuIn = Menu.checkInt();
-            if (menuIn == 1) {
-                saving = dataBase.seeUsers();
-                saving.get(inSystem).favMovies.add(movieID);
-                dataBase.saveChange(saving);
-
-            }
-        }*/
         Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
-
-        //Account.seeStatistics(movieID, inSystem);
     }
 }
 
