@@ -355,7 +355,7 @@ public class Menu {
     //makes 1 second wait
     public static void wait1s() {
         try {
-            Thread.sleep(0);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
