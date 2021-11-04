@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -48,7 +49,7 @@ public class Menu {
                 creatingAccount = true;
             } else if (input == 4) {
                 Menu.print("Insert Numeric Password for Admin Area");
-                if (checkInt() == 123456){Menu.menuAdmin();}
+                if (checkInt() == 123){Menu.menuAdmin();}
                 else {Menu.print("Wrong admin password, try again");}
             } else {
                 Menu.flush();
@@ -70,9 +71,9 @@ public class Menu {
                                                                      \s
                                                         3.Update         4.Delete
                                                                      \s
-                                                                  5.Copy
+                                                        5.Copy           6.Show entire Database
                                                                   
-                                                                  6.Back
+                                                                  7.Back
                     """;
             Menu.flush();
             Menu.printMenu(10, menuActions);
@@ -90,11 +91,17 @@ public class Menu {
             } else if (input == 4) {
                 Menu.flush();
                 MovieDB.deleteMovieFromDB();
-            } else if (input == 6) {
+            } else if (input == 7) {
                 Menu.flush();
                 useMenu = true;
             } else if (input == 5) {
                 Menu.flush();
+                MovieDB.CopyMovie();
+            } else if (input == 6) {
+                Menu.flush();
+
+                Menu.printMenu(22, MovieDB.ReadDB().toString());
+                inputSc.nextLine();
                 MovieDB.CopyMovie();
             } else {
                 Menu.print("This option is not on menu, try again");
@@ -136,7 +143,7 @@ public class Menu {
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
                 }
-                Menu.spaceEnd(currentUser.seeFavorite(userID).size());
+                Menu.spaceEnd(currentUser.seeFavorite(userID).size(),4);
                 userInput.nextLine();
             } else if (inputUsMenu == 3) {
                 Menu.flush();
@@ -144,9 +151,8 @@ public class Menu {
                 for (int i = 0; i <currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seenMovieList(userID).get(i));
                     System.out.println("First seen:"+currentUser.seenMoviedate(userID).get(i)+" Times seen:"+currentUser.seenMovieTimes(userID).get(i));
-
                 }
-                Menu.spaceEnd(currentUser.seenMovieList(userID).size());
+                Menu.spaceEnd(currentUser.seenMovieList(userID).size(),4);
                 userInput.nextLine();
             } else if (inputUsMenu == 4) {
                 Menu.flush();
@@ -165,41 +171,13 @@ public class Menu {
 
     //Prints a single string in the menu way
     public static void print(String str) {
-        String menuTop = """
-                ======================================================================================================
-                                                
-                   _____                       __  __            _        _____        _        _                   
-                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                        __/ |                                                                       
-                                       |___/                                                                        
-                                              """;
-        String menuBottom = """
-                                                                 
-                                                                    
-                                                                     
-                            
-                                                                    
-                            
-                                                                     
-                            
-                                                                     
-                            
-                            
-                            
-                ======================================================================================================
-                """;
         Menu.flush();
-        System.out.println(menuTop);
-        System.out.println("                                 " + str);
-        System.out.println(menuBottom);
-        Menu.wait1s();
+        Menu.printMenu(0, "                                 " + str);
+        Menu.wait1s(1000);
 
     }
 
+    //printfind prints a menu top befor a find
     public static void printFind() {
         String menuTop = """
                 ======================================================================================================
@@ -218,6 +196,7 @@ public class Menu {
 
     }
 
+    //Prints a menu from a String and the string amount of rows
     public static void printMenu(int rows, String toPrint) {
         String menuTop = """
                 ======================================================================================================
@@ -230,6 +209,9 @@ public class Menu {
                   \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
                                         __/ |                                                                       
                                        |___/                                                                        
+                                              
+                                              
+                                              
                                               """;
         String blank = """
                                 
@@ -238,15 +220,16 @@ public class Menu {
                 ======================================================================================================
                 """;
         int blanklines;
-        blanklines = 18 - (rows+ 1);
+        blanklines = 15 - (rows+ 1);
         Menu.flush();
         System.out.println(menuTop);
         System.out.println(toPrint);
-        System.out.println(blank.repeat(blanklines));
+        if (blanklines>=0){System.out.println(blank.repeat(blanklines));}
         System.out.println(endline);
 
     }
 
+    //Checks if the user inserted a proper int
     public static int checkInt() {
         int check = 0;
         Scanner userInput = new Scanner(System.in);
@@ -263,19 +246,23 @@ public class Menu {
         return check;
     }
 
-
     //Query that lets the user Search By
     public static void AddToFavSeen(int userID) {
         boolean run = true;
         while (run) {
             Scanner userInput = new Scanner(System.in);
-            Menu.printFind();
-            System.out.println("Do you want to add a movie to your Favorites/Seen Movies?\n" +
-                    "1. Watch one of movies in the list above\n" +
-                    "2. Add to Favorites one of movies above\n" +
-                    "3. Add to Seen one of the movies above\n" +
-                    "4. Back to the Menu");
-            Menu.spaceEnd(2);
+            String favSeen= """
+                                     Do you want to add a movie to your Favorites/Seen Movies?"
+                                     
+                                           1. Watch one of movies in the list above
+                                           
+                                           2. Add to Favorites one of movies above
+                                           
+                                           3. Add to Seen one of the movies above
+                                           
+                                           4. Back to the Menu
+                            """;
+            Menu.printMenu(10,favSeen);
             int resp = Menu.checkInt();
             if (resp == 1) {//Watch a movie
                 Menu.print("Insert ID of the movie you want to add to Watched:");
@@ -319,7 +306,7 @@ public class Menu {
     }
 
     //Prints a blank space as many times as needed and a end line
-    public static void spaceEnd(int nr) {
+    public static void spaceEnd(int nr,int lines) {
 
         String blank = """
                                 
@@ -327,20 +314,18 @@ public class Menu {
         String endline = """
                 ======================================================================================================
                 """;
-        if (nr >= 3) {System.out.println(blank);}
-        if (nr == 2) {System.out.println(blank.repeat(5));}
-        if (nr == 1) {System.out.println(blank.repeat(11));}
+        int blanklines =15 -((nr*lines)+1);
+        if (blanklines >= 0) {System.out.println(blank.repeat(blanklines));}
         System.out.println(endline);
     }
 
     //makes 1 second wait
-    public static void wait1s() {
+    public static void wait1s(int time) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
 }

@@ -8,7 +8,8 @@ public class Main {
 
         //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
         //Menu.print(MovieDB.ReadDB().toString());
-        Menu.wait1s();
+        //MenuSpin.crazySpin();
+        Menu.wait1s(1000);
         Menu.menuLog();
 
     }

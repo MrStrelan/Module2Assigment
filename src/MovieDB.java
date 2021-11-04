@@ -127,19 +127,23 @@ public class MovieDB implements Serializable {
 
                 int index = MovieDB.movieDBindex(id);
                 mn = MovieDB.ReadDB().get(index);//Movie we want to update loaded
-                Menu.print("We're editing: " + mn.getTitle());
+                Menu.print("We're editing: " + mn.toString());
 
                 String ask = """
-                                    What do you want to edit?
-                                    1.Title
-                                    2.Year
-                                    3.Actors/Roles
-                                    4.Add Actors/Roles
-                                    5.ID
+                                           What do you want to edit?
+                                    
+                                               1.Title
+                                    
+                                               2.Year
+                                    
+                                               3.Actors/Roles
+                                    
+                                               4.Add Actors/Roles
+                                    
+                                               5.ID
                         """;
-                Menu.printFind();
-                System.out.println(ask);
-                Menu.spaceEnd(2);
+                Menu.printMenu(11,ask);
+
                 int answer = Menu.checkInt();
                 ArrayList<String> actors = new ArrayList<>();
                 ArrayList<String> roles = new ArrayList<>();
@@ -202,6 +206,8 @@ public class MovieDB implements Serializable {
                 MovieDB.WriteDBToFile(movDB);//Create an arraylist Movies
                 Menu.flush();
                 Menu.print(mn.getTitle() + " succesfuly edited");
+                Menu.printMenu(3,mn.toString());
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -300,13 +306,14 @@ public class MovieDB implements Serializable {
                 Menu.print("We're copying: " + mn.getTitle());
                 String ask = """
                                     Do you want to edit something?
-                                    1.Title & Year
-                                    2.Actors/Roles
-                                    3.Add Actors/Roles
+                                     
+                                           1.Title & Year
+                                    
+                                           2.Actors/Roles
+                                    
+                                           3.Add Actors/Roles
                         """;
-                Menu.printFind();
-                System.out.println(ask);
-                Menu.spaceEnd(1);
+                Menu.printMenu(7,ask);
                 int answer = Menu.checkInt();
                 ArrayList<String> actors = new ArrayList<>();
                 ArrayList<String> roles = new ArrayList<>();

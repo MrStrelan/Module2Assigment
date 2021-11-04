@@ -1,5 +1,3 @@
-import javax.swing.border.TitledBorder;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FindMovie {
@@ -9,37 +7,17 @@ public class FindMovie {
         Scanner userInput = new Scanner(System.in);
         Menu.flush();
         String ask = """
-                ======================================================================================================
-                                          \s
-                   _____                       __  __            _        _____        _        _                  \s
-                  / ____|                     |  \\/  |          (_)      |  __ \\      | |_     | |                 \s
-                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| _/ __ _| |__   __ _ ___  ___
-                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | | / _` | '_ \\ / _` / __|/ _ \\
-                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                        __/ |                                                                      \s
-                                       |___/                                                                       \s
-                                                             
-                                                             
-                                                             \s
-                                               How do you want to find the Movie?
+                                             How do you want to find the Movie?
                                                
-                                                    1.Title         2.Year  \s
-                                                                 \s
+                                                    1.Title         2.Year
+                                                                 
                                                     3.Actor         4.ID
-                                                                 \s
-                                                            5.Roles        \s
-                         \s
+                                                                 
+                                                            5.Roles
+                                                            
                                                             6.Back
-                                                                 \s
-                                                                 
-                                                                 
-                                                                 
-                                 \s
-                ======================================================================================================
-                   
                 """;
-        System.out.println(ask);
+        Menu.printMenu(9,ask);
         int answer = Menu.checkInt();
         if (answer == 1) {
             Menu.flush();
@@ -47,7 +25,8 @@ public class FindMovie {
             return true;
         } else if (answer == 2) {
             Menu.flush();
-            Menu.print("Do you want to search a range of years?y/n (n will search Single year)");
+            String ask2 = "                            Do you want to search a range of years? y/n \n                            (n will search Single year)";
+            Menu.printMenu(2,ask2);
             String asks = userInput.nextLine();
             boolean resps = false;
             while (!resps){
@@ -99,7 +78,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr > 0) {Menu.spaceEnd(nr, 3);}
         userInput.nextLine();
     }
 
@@ -125,7 +104,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr > 0) {Menu.spaceEnd(nr,3);}
         userInput.nextLine();
     }
 
@@ -147,8 +126,8 @@ public class FindMovie {
                 nr++;
             }
         }
-        if (nr == 0) {Menu.print("Could not find any movie, try again");Menu.wait1s();}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr == 0) {Menu.print("Could not find any movie, try again");Menu.wait1s(1000);}
+        if (nr > 0) {Menu.spaceEnd(nr,3);}
         userInput.nextLine();
     }
 
@@ -169,7 +148,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr > 0) {Menu.spaceEnd(nr,3);}
         userInput.nextLine();
 
     }
@@ -208,7 +187,7 @@ public class FindMovie {
             }
         }
         if (nr == 0) {Menu.print("Could not find any movie, try again");}
-        if (nr > 0) {Menu.spaceEnd(nr);}
+        if (nr > 0) {Menu.spaceEnd(nr,3);}
         userInput.nextLine();
 
     }
@@ -226,8 +205,6 @@ public class FindMovie {
             }
         }
     }
-
-
 
     //Query that lets the user Search By
     public static void knowID() {
