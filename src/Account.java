@@ -241,7 +241,6 @@ public class Account implements Serializable {
             saving.get(inSystem).seenTimes.add(1);
         }
         dataBase.saveChange(saving);
-        System.out.println(dataBase.seeUsers().get(inSystem).seenMovies.size());
     }
 
     public static void watchMovie(int movieID, int inSystem) {
@@ -257,7 +256,6 @@ public class Account implements Serializable {
                 seen = true;
                 Integer times = dataBase.seeUsers().get(inSystem).seenTimes.get(i);
                 times++;
-                //Error
                 saving.get(inSystem).seenTimes.set(i, times);
                 dataBase.saveChange(saving);
             }
@@ -337,7 +335,6 @@ public class Account implements Serializable {
                 deleteFavorite(movieID, inSystem);
             }
         }
-        Menu.print(dataBase.seeUsers().get(inSystem).favMovies.toString());
     }
 }
 
