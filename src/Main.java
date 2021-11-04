@@ -7,9 +7,10 @@ public class Main {
     public static void main(String[] args) {
 
         //Load Movie Database (MovieDB is an Arraylist of Movie Objects)
-        Menu.print(MovieDB.ReadDB().toString());
-        System.out.println("");
+        //Menu.print(MovieDB.ReadDB().toString());
+        Menu.wait1s();
         Menu.menuLog();
 
     }
+
 }
