@@ -10,16 +10,6 @@ public class Menu {
         boolean creatingAccount = false;
         while (creatingAccount == false) {
             String menuLogin = """
-                    ======================================================================================================
-                                
-                       _____                       __  __            _        _____        _        _                   \s
-                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  \s
-                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___\s
-                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                            __/ |                                                                       \s
-                                           |___/                                                                        \s
                                                    What would you like to do today?
                                                                     
                                                              1.Login
@@ -27,17 +17,9 @@ public class Menu {
                                                              2.Create Account
                                 
                                                              3.Exit
-                                
-                                                                         
-                                
-                                                                         
-                                
-                                
-                                
-                    ======================================================================================================
                     """;
             Menu.flush();
-            System.out.println(menuLogin);
+            Menu.printMenu(7, menuLogin);
             int input;
             input = checkInt();
             if (input == 1) {
@@ -82,33 +64,18 @@ public class Menu {
         boolean useMenu = false;
         while (!useMenu) {
             String menuActions = """
-                    ======================================================================================================
-                                              \s
-                       _____                       __  __            _        _____        _        _                  \s
-                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                 \s
-                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                            __/ |                                                                      \s
-                                           |___/                                                                       \s
-                                                                 \s
                                                     - Welcome to the Admin Section -
                                                                                                                                                               \s
                                                         1.Search         2.Create  \s
                                                                      \s
                                                         3.Update         4.Delete
                                                                      \s
-                                                                  5.Copy        \s
-                             \s
-                                                                  6.Back
+                                                                  5.Copy
                                                                   
-                                                                     \s
-                                     \s
-                    ======================================================================================================
+                                                                  6.Back
                     """;
             Menu.flush();
-            System.out.println(menuActions);
+            Menu.printMenu(10, menuActions);
             int input;
             input = checkInt();
             if (input == 1) {
@@ -142,17 +109,6 @@ public class Menu {
         boolean useMenu = false;
         while (useMenu == false) {
             String menuActions = """
-                    ======================================================================================================
-                                
-                       _____                       __  __            _        _____        _        _                   
-                      / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
-                     | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
-                     | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
-                     | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
-                      \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
-                                            __/ |                                                                       
-                                           |___/                                                                        
-                        
                                                    What would you like to do today?
                                                                         
                                                          1.Search Movie
@@ -162,15 +118,10 @@ public class Menu {
                                                          3.See Statistics
                                 
                                                          4.Log out
-                                
-                                
-                                
-                                
-                    ======================================================================================================
                     """;
             Menu.flush();
             //Menu.print("Welcome!");
-            System.out.println(menuActions);
+            Menu.printMenu(9,menuActions);
             int inputUsMenu = checkInt();
             if (inputUsMenu == 1) {
                 Menu.flush();
@@ -267,6 +218,35 @@ public class Menu {
 
     }
 
+    public static void printMenu(int rows, String toPrint) {
+        String menuTop = """
+                ======================================================================================================
+                                                
+                   _____                       __  __            _        _____        _        _                   
+                  / ____|                     |  \\/  |          (_)      |  __ \\      | |      | |                  
+                 | |     _ __ __ _ _____   _  | \\  / | _____   ___  ___  | |  | | __ _| |_ __ _| |__   __ _ ___  ___
+                 | |    | '__/ _` |_  / | | | | |\\/| |/ _ \\ \\ / / |/ _ \\ | |  | |/ _` | __/ _` | '_ \\ / _` / __|/ _ \\
+                 | |____| | | (_| |/ /| |_| | | |  | | (_) \\ V /| |  __/ | |__| | (_| | || (_| | |_) | (_| \\__ \\  __/
+                  \\_____|_|  \\__,_/___|\\__, | |_|  |_|\\___/ \\_/ |_|\\___| |_____/ \\__,_|\\__\\__,_|_.__/ \\__,_|___/\\___|
+                                        __/ |                                                                       
+                                       |___/                                                                        
+                                              """;
+        String blank = """
+                                
+                """;
+        String endline = """
+                ======================================================================================================
+                """;
+        int blanklines;
+        blanklines = 18 - (rows+ 1);
+        Menu.flush();
+        System.out.println(menuTop);
+        System.out.println(toPrint);
+        System.out.println(blank.repeat(blanklines));
+        System.out.println(endline);
+
+    }
+
     public static int checkInt() {
         int check = 0;
         Scanner userInput = new Scanner(System.in);
@@ -282,6 +262,7 @@ public class Menu {
         }
         return check;
     }
+
 
     //Query that lets the user Search By
     public static void AddToFavSeen(int userID) {
@@ -355,7 +336,7 @@ public class Menu {
     //makes 1 second wait
     public static void wait1s() {
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
