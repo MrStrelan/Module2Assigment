@@ -397,4 +397,73 @@ public class MovieDB implements Serializable {
         }
     }
 
+    //Lets a user copy a movie
+    public static void CopyMovieAR() {
+        boolean stopit = false;
+        while (!stopit) {
+            Movie aRless;
+            Movie aRmore;
+            Menu.print("Do you want to Copy a Movie Actors/Roles from anothe movie? y/n");
+            Scanner userInput = new Scanner(System.in);
+            String answ = userInput.nextLine();
+            if (answ.equals("y")) {
+                FindMovie.knowID();
+                Menu.print("Enter ID of the movie you want to copy the info from:");
+                int id = Menu.checkInt();
+                while (MovieDB.sameID(id)) {
+                    Menu.print("ID not found. Enter different ID");
+                    id = Menu.checkInt();
+                }
+                aRmore = FindMovie.returnMovByID(id);//Movie we want to copy the info from
+                Menu.print(aRmore.toString());
+                int index2 = MovieDB.movieDBindex(id);
+                Menu.print("Enter ID of the movie you want to copy the info to:");
+                int idless = Menu.checkInt();
+                while (MovieDB.sameID(idless)) {
+                    Menu.print("ID not found. Enter different ID");
+                    idless = Menu.checkInt();
+                }
+                aRless = FindMovie.returnMovByID(idless);//Movie we want to copy the info from
+                Menu.print(aRless.toString());
+
+                Menu.printMenu(8,"You want to copy: \n"+
+                        aRmore.toString()+  " data "+
+                        "\n"+ "to: "+aRless.toString());
+                int index = MovieDB.movieDBindex(idless);
+
+                ArrayList<String> actors = new ArrayList<>();
+                ArrayList<String> roles = new ArrayList<>();
+
+                aRless.setActors(aRmore.getActors());
+                aRless.setRoles(aRmore.getRoles());
+
+                ArrayList<Movie> movDB;
+                movDB = MovieDB.ReadDB();//Create an arraylist Movies
+                movDB.set(index, aRless);//Sets the new movie created to
+                MovieDB.WriteDBToFile(movDB);//Create an arraylist Movies
+                Menu.flush();
+                Menu.printMenu(4, MovieDB.ReadDB().get(index).toString()+ " edited in the DB");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                stopit = true;
+
+            } else if (answ.equals("n")) {
+                Menu.print("Back to the Menu");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                stopit = true;
+            } else {
+                Menu.print("please enter y or n");
+            }
+
+        }
+    }
+
 }

@@ -96,7 +96,7 @@ public class Menu {
                 useMenu = true;
             } else if (input == 5) {
                 Menu.flush();
-                MovieDB.CopyMovie();
+                MovieDB.CopyMovieAR();
             } else if (input == 6) {
                 Menu.flush();
 
@@ -293,6 +293,7 @@ public class Menu {
                 Account.addSeen(MovID, userID, firstSeen);
                 Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle() + " added to Seen");
                 Menu.flush();
+
                 run = false;
 
             }

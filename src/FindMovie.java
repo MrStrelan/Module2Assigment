@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FindMovie {
@@ -194,9 +195,6 @@ public class FindMovie {
 
     //Query that lets the system display  Search By
     public static void SearchByID(int i) {
-        Scanner userInput = new Scanner(System.in);
-        Movie mn = new Movie();
-
         for (Movie m : MovieDB.ReadDB()
         ) {
             if (m.getID() == i) {
@@ -204,6 +202,19 @@ public class FindMovie {
                 //DisplayStatBasedOnAccount(m.getID())
             }
         }
+    }
+
+    //Query that lets the system display  Search By
+    public static Movie returnMovByID(int id) {
+        Movie mn = new Movie();
+
+        for (Movie m : MovieDB.ReadDB()
+        ) {
+            if (m.getID() == id) {
+                mn = m;//DisplayStatBasedOnAccount(m.getID())
+            }
+        }
+        return mn;
     }
 
     //Query that lets the user Search By
