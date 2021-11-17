@@ -26,18 +26,24 @@ public class FindMovie {
             return true;
         } else if (answer == 2) {
             Menu.flush();
-            String ask2 = "                            Do you want to search a range of years? y/n \n                            (n will search Single year)";
-            Menu.printMenu(2,ask2);
-            String asks = userInput.nextLine();
+            String ask2 = """
+                                             Do you want to search a range of years?
+                                               
+                                                    1.Range of Years
+                                                                 
+                                                    2.Single Year
+                """;
+            Menu.printMenu(5,ask2);
+            int asks = Menu.checkInt();
             boolean resps = false;
             while (!resps){
-                if (asks.equals("y")){
+                if (asks == 1){
                     FindMovie.SearchYearRange();
                     resps = true;}
-                if (asks.equals("n")){
+                if (asks == 2){
                     FindMovie.SearchYear();
                     resps = true;}
-                else {Menu.print("Please enter y or n");}
+                else {Menu.print("Please enter 1 or 2");}
             }
             return true;
         } else if (answer == 3) {

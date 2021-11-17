@@ -119,7 +119,7 @@ public class MovieDB implements Serializable {
                 FindMovie.knowID();
                 Menu.print("Enter ID of the movie you want to Update:");
                 int id = Menu.checkInt();
-                while (MovieDB.sameID(id)) {
+                while (!MovieDB.sameID(id)) {
                     Menu.print("ID not found. Enter different ID");
                     FindMovie.SearchByID(id);
                     id = Menu.checkInt();

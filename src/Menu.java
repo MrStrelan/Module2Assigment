@@ -131,14 +131,12 @@ public class Menu {
             Menu.printMenu(9,menuActions);
             int inputUsMenu = checkInt();
             if (inputUsMenu == 1) {
-                Menu.flush();
                 boolean foundMovies = false;
                 foundMovies = FindMovie.Find();
                 if (foundMovies == true) {
                     Menu.AddToFavSeen(userID);
                 }
             } else if (inputUsMenu == 2) {// See Favourites
-                Menu.flush();
                 Menu.printFind();
                 for (int i = 0; i < currentUser.seeFavorite(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seeFavorite(userID).get(i));
@@ -146,7 +144,6 @@ public class Menu {
                 Menu.spaceEnd(currentUser.seeFavorite(userID).size(),4);
                 userInput.nextLine();
             } else if (inputUsMenu == 3) {
-                Menu.flush();
                 Menu.printFind();
                 for (int i = 0; i <currentUser.seenMovieList(userID).size(); i++) {
                     FindMovie.SearchByID(currentUser.seenMovieList(userID).get(i));
@@ -271,7 +268,6 @@ public class Menu {
                 Menu.print(MovieDB.ReadDB().get(MovieDB.movieDBindex(MovID)).getTitle() + " added to Watched");
                 run = false;
             }
-
             if (resp == 2) {//Add to Fav
                 Menu.print("Insert ID of the movie you want to add to Favourites:");
                 int MovID = Menu.checkInt();
@@ -300,7 +296,7 @@ public class Menu {
             if (resp == 4) {//Back to menu
                 run = false;
             } else {
-                Menu.print("Insert proper answer");
+                //Menu.print("");
             }
         }
 
